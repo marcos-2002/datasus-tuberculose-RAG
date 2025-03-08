@@ -1,0 +1,7 @@
+Flask[async]==3.0.3
+requests==2.32.3
+Hypercorn==0.17.3
+SQLAlchemy==2.0.35
+Hypercorn==0.17.3
+beautifulsoup4==4.13.3
+lxml==5.3.1
