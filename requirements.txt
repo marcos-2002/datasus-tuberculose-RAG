@@ -5,3 +5,9 @@ SQLAlchemy==2.0.35
 Hypercorn==0.17.3
 beautifulsoup4==4.13.3
 lxml==5.3.1
+dotenv==0.9.9
+tortoise-orm==0.21.6
+asyncpg==0.30.0
+aerich==0.8.2
+tomli_w==1.2.0
+tomlkit==0.13.2

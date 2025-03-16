@@ -1,3 +1,4 @@
+from typing import Optional
 from config import Config
 from tortoise import Tortoise
 
@@ -17,7 +18,7 @@ TORTOISE_ORM = {
         },
     },
     "apps": {
-        "dw": {
+        "models": {
             "models": ["aerich.models", "database.models"],
             "default_connection": "default",
         }
@@ -25,6 +26,10 @@ TORTOISE_ORM = {
     "use_tz": False,
     "timezone": "UTC",
 }
+_is_initialized: Optional[bool] = False
 
 async def init():
-    await Tortoise.init(config=TORTOISE_ORM)
+    global _is_initialized
+    if not _is_initialized:
+        await Tortoise.init(config=TORTOISE_ORM)
+        _is_initialized = True
