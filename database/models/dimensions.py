@@ -1,213 +1,14 @@
 from tortoise.models import Model
 from tortoise import fields
 
-class Ano(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=255)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "anos"
-
-    def __str__(self):
-        return self.nome
-
-class Mes(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=255)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "meses"
-
-    def __str__(self):
-        return self.nome
-    
-class RegiaoNotif(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=255)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "regioes_notif"
-
-    def __str__(self):
-        return self.nome
-
-
-class UFNotif(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "ufs_notif"
-
-    def __str__(self):
-        return self.nome
-    
-class MunicipioNotif(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "municipios_notif"
-
-    def __str__(self):
-        return self.nome
-    
-class CapitalNotif(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "capitais_notif"
-
-    def __str__(self):
-        return self.nome
-    
-class MacrorregNotif(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "macrorregs_notif"
-
-    def __str__(self):
-        return self.nome
-    
-class MicrorregNotif(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "microrregs_notif"
-
-    def __str__(self):
-        return self.nome
-
-class RegMetropNotif(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "reg_metrop_notif"
-
-    def __str__(self):
-        return self.nome
-    
-
-class TerritCidadaniaNotif(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "territ_cidadanias_notif"
-
-    def __str__(self):
-        return self.nome
-
-class MesorregiaoNotif(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "meso_regioes_notif"
-
-    def __str__(self):
-        return self.nome
-
-class RegiaoSaudeNotif(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "regioes_saude_notif"
-
-    def __str__(self):
-        return self.nome
-    
-class AmazoniaLegalNotif(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "amazonia_legal_notif"
-
-    def __str__(self):
-        return self.nome
-    
-class SemiaridoNotif(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "semiaridos_notif"
-
-    def __str__(self):
-        return self.nome
-       
-class FaixaFronteiraNotif(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "faixa_fronteiras_notif"
-
-    def __str__(self):
-        return self.nome
-
-class ZonaFronteiraNotif(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "zona_fronteiras_notif"
-
-    def __str__(self):
-        return self.nome
-    
-class MunExtremaPobrezaNotif(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "mun_extrema_pobreza_notif"
-
-    def __str__(self):
-        return self.nome
-    
-class RegiaoResidencia(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "regioes_residencia"
-
-    def __str__(self):
-        return self.nome
-
 class UFResid(Model):
     id = fields.BigIntField(primary_key=True)
     nome = fields.CharField(max_length=5000)
+    
     criado_em = fields.DatetimeField(auto_now_add=True)
 
     class Meta:
-        table = "ufs_resid"
+        table = "uf_resid"
 
     def __str__(self):
         return self.nome
@@ -218,183 +19,18 @@ class MunicipioResid(Model):
     criado_em = fields.DatetimeField(auto_now_add=True)
 
     class Meta:
-        table = "municipios_resid"
+        table = "municipio_resid"
 
     def __str__(self):
         return self.nome
     
-class CapitalResid(Model):
+class Idade(Model):
     id = fields.BigIntField(primary_key=True)
     nome = fields.CharField(max_length=5000)
     criado_em = fields.DatetimeField(auto_now_add=True)
 
     class Meta:
-        table = "capitais_resid"
-
-    def __str__(self):
-        return self.nome
-
-class RegiaoSaudeResid(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "regioes_saude_resid"
-
-    def __str__(self):
-        return self.nome
-
-class MacroRegSaudeResid(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "macro_regioes_saude_resid"
-
-    def __str__(self):
-        return self.nome
-    
-class MicroRegSaudeResid(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "micro_regioes_saude_resid"
-
-    def __str__(self):
-        return self.nome
-    
-class RegMetropResid(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "regioes_metrop_resid"
-
-    def __str__(self):
-        return self.nome
-    
-class TerritCidadaniaResid(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "territ_cidadania_resid"
-
-    def __str__(self):
-        return self.nome
-
-class MesoRegiaopPNDRResid(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "meso_regioes_PNDR_resid"
-
-    def __str__(self):
-        return self.nome
-    
-class AmazoniaLegalResid(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "amazonia_legal_resid"
-
-    def __str__(self):
-        return self.nome
-
-class SemiaridoResid(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "semiarido_resid"
-
-    def __str__(self):
-        return self.nome
-    
-class FaixaFrontResid(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "faixa_front_resid"
-
-    def __str__(self):
-        return self.nome
-
-class ZonaFrontResid(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "zona_front_resid"
-
-    def __str__(self):
-        return self.nome
-
-class MunExtremaPobrResid(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "mun_extrema_pobr_resid"
-
-    def __str__(self):
-        return self.nome
-
-class ZonaResid(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "zona_resid"
-
-    def __str__(self):
-        return self.nome
-
-class FxEtaria(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "fx_etarias"
-
-    def __str__(self):
-        return self.nome
-
-class FxEtaria7(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "fx_etarias7"
-
-    def __str__(self):
-        return self.nome
-
-class FxEtaria13(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "fx_etarias13"
+        table = "idade"
 
     def __str__(self):
         return self.nome
@@ -405,7 +41,7 @@ class Raca(Model):
     criado_em = fields.DatetimeField(auto_now_add=True)
 
     class Meta:
-        table = "racas"
+        table = "raca"
 
     def __str__(self):
         return self.nome
@@ -416,7 +52,7 @@ class Sexo(Model):
     criado_em = fields.DatetimeField(auto_now_add=True)
 
     class Meta:
-        table = "sexos"
+        table = "sexo"
 
     def __str__(self):
         return self.nome
@@ -427,18 +63,7 @@ class TipoEntrada(Model):
     criado_em = fields.DatetimeField(auto_now_add=True)
 
     class Meta:
-        table = "tipos_entrada"
-
-    def __str__(self):
-        return self.nome
-
-class Institucionalizado(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "institucionalizado"
+        table = "tipo_entrada"
 
     def __str__(self):
         return self.nome
@@ -482,7 +107,7 @@ class Forma(Model):
     criado_em = fields.DatetimeField(auto_now_add=True)
 
     class Meta:
-        table = "formas"
+        table = "forma"
 
     def __str__(self):
         return self.nome
@@ -581,7 +206,7 @@ class DrogasIlicitas(Model):
     criado_em = fields.DatetimeField(auto_now_add=True)
 
     class Meta:
-        table = "drogas_ilicitas"
+        table = "droga_ilicita"
 
     def __str__(self):
         return self.nome
@@ -604,17 +229,6 @@ class OutraDoenca(Model):
 
     class Meta:
         table = "outra_doenca"
-
-    def __str__(self):
-        return self.nome
-
-class ConfirmacaoLaboratorial(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "confirmacao_laboratorial"
 
     def __str__(self):
         return self.nome
@@ -696,17 +310,6 @@ class Antirretroviral(Model):
     def __str__(self):
         return self.nome
 
-class TDORealizado(Model):
-    id = fields.BigIntField(primary_key=True)
-    nome = fields.CharField(max_length=5000)
-    criado_em = fields.DatetimeField(auto_now_add=True)
-
-    class Meta:
-        table = "tdo_realizado"
-
-    def __str__(self):
-        return self.nome
-
 class Bacilosc2Mes(Model):
     id = fields.BigIntField(primary_key=True)
     nome = fields.CharField(max_length=5000)
@@ -725,6 +328,30 @@ class Bacilosc6Mes(Model):
 
     class Meta:
         table = "bacilosc_6mes"
+
+    def __str__(self):
+        return self.nome
+
+class RaioX(Model):
+    id = fields.BigIntField(primary_key=True)
+    nome = fields.CharField(max_length=5000)
+    
+    criado_em = fields.DatetimeField(auto_now_add=True)
+
+    class Meta:
+        table = "raio_x"
+
+    def __str__(self):
+        return self.nome
+
+class TesteMolec(Model):
+    id = fields.BigIntField(primary_key=True)
+    nome = fields.CharField(max_length=5000)
+    
+    criado_em = fields.DatetimeField(auto_now_add=True)
+
+    class Meta:
+        table = "teste_molec"
 
     def __str__(self):
         return self.nome

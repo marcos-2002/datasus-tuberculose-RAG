@@ -27,3 +27,5 @@ class Config:
         self.DB_USER = os.getenv("DB_USER", None)
         self.DB_PASS = os.getenv("DB_PASS", None)
         self.DB_DATABASE = os.getenv("DB_DATABASE", None)
+        
+        self.LLM_KEY = os.getenv("LLM_KEY", None)
