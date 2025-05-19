@@ -7,10 +7,10 @@ class ETL:
         extractor = Extractor()
         data = await extractor.extract(year, month)
      
-        # transformer = Transformer()
-        # parsed = transformer.parse(data)
+        transformer = Transformer()
+        parsed = transformer.parse(data)
     
-        # if(parsed):
-        #     loader = Loader()
-        #     await loader.insert(parsed)
+        if(parsed):
+            loader = Loader()
+            await loader.insert(parsed)
     

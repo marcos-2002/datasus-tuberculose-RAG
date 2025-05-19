@@ -61,7 +61,7 @@ Para mais informações, consulte a documentação do [aerich](https://github.co
 - Criar uma nova migration:
 
   ```bash
-  aerich migrate --name name_of_migration
+  aerich migrate
   ```
 
 - Inicializar o banco (apenas uma vez caso não tenha migrations)

@@ -7,6 +7,9 @@ class DimensionEnum(Enum):
     """
     Each entry is structured as: (name, foreign_key_column)
     """
+    TIPO_ENTRADA = "TRATAMENTO", "tipo_entrada"
+    RACA = "CS_RACA", "raca_id",
+    SEXO = "CS_SEXO", "sexo_id"
     POP_LIBER = "POP_LIBER", "ppl_id", 
     POP_RUA = "POP_RUA", "pop_sit_rua_id", 
     #POP_SAUDE = "POP_SAUDE", "prof_saude_id", 
@@ -14,23 +17,23 @@ class DimensionEnum(Enum):
     BENEF_GOV = "BENEF_GOV", "benef_governo_id", 
     FORMA = "FORMA", "forma_id", 
     EXTRAPU1_N = "EXTRAPU1_N", "extra_pulm1_id", 
-    EXTRAPUL_O = "extra_pulm2", "territ_cidadania_notif_id", 
+    EXTRAPUL_O = "EXTRAPUL_O", "territ_cidadania_notif_id", 
     AGRAVAIDS = "AGRAVAIDS", "aids_id", 
     AGRAVALCOO = "AGRAVALCOO","alcoolismo_id", 
     AGRAVDIABE =  "AGRAVDIABE","diabetes_id",
     AGRAVDOENC = "AGRAVDOENC", "doenca_mental_id", 
-    AGRAVDROGAS = "AGRAVDROGAS", "droga_ilicita_id", 
-    AGRAVTABACO = "AGRAVTABACO", "tabagismo_id", 
+    AGRAVDROGAS = "AGRAVDROGA", "droga_ilicita_id", 
+    AGRAVTABACO = "AGRAVTABAC", "tabagismo_id", 
     AGRAVOUTRA = "AGRAVOUTRA", "outra_doenca_id", 
     RAIOX_TORA = "RAIOX_TORA","raio_x_id", 
     HIV = "HIV", "hiv_id", 
     ANTIRRETROVIRAL = "ANTIRRETROVIRAL", "antirretroviral_id", 
     CULTURA_ES = "CULTURA_ES", "cultura_escarro_id", 
-    TESTE_MOLEC = "TESTE_MOLEC", "teste_molec_id", 
-    TEST_SENSIBILID = "TEST_SENSIBILID", "teste_sensibilidade_id", 
+    TESTE_MOLEC = "TEST_MOLEC", "teste_molec_id", 
+    TEST_SENSIBILID = "TEST_SENSI", "teste_sensibilidade_id", 
     BACILOSC_2 = "BACILOSC_2",  "bacilosc_2mes_id", 
     BACILOSC_6 = "BACILOSC_6", "bacilosc_6mes_id", 
-    SITUA_ENCE = "amazonia_legal_resid", "situacao_encerra_id", 
+    SITUA_ENCE = "SITUA_ENCE", "situacao_encerra_id", 
     DATA = "DT_NOTIFIC", "data",
     ANO_NASC = "ANO_NASC", "ano_nasc"
     
