@@ -1,10 +1,20 @@
 import asyncio
-from flask import Flask, json, jsonify, request
+from quart import Quart, jsonify
 import database
 from etl.etl import ETL
 from rag.rag import RAG
+from config import Config
 
-app = Flask(__name__)
+app = Quart(__name__)
+app.config.from_object(Config)
+
+@app.before_serving
+async def startup():
+    await database.init()
+
+@app.after_serving
+async def shutdown():
+    await Tortoise.close_connections()
 
 @app.route('/', methods=['GET'])
 def hello():
@@ -14,7 +24,7 @@ def hello():
 async def etl():
     years = [str(i) for i in range(2023, 2024)]  
 
-    months = [i for i in range(12, 13)]
+    months = [i for i in range(1, 13)]
     
     etl = ETL()
     
