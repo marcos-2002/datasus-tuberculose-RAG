@@ -122,7 +122,7 @@ INSERT INTO teste_sensibilidade (id, nome) VALUES (5, 'Sensível');
 INSERT INTO teste_sensibilidade (id, nome) VALUES (6, 'Em andamento');
 INSERT INTO teste_sensibilidade (id, nome) VALUES (7, 'Não realizado');
 
-INSERT INTO banco_metadados (nome_tabela, descricao_tabela, exemplo_valores) VALUES (
+INSERT INTO banco_metadados (nome_tabela, descricao_tabela, categorias) VALUES (
 'situacao_encerra', 
 'Situação de Encerramento refere-se ao motivo pelo qual um caso foi finalizado no sistema de acompanhamento', 
 'Os tipos possíveis de encerramento são:
@@ -138,7 +138,7 @@ Falência: Falha no tratamento, sem resposta ao esquema terapêutico.
 Abandono Primário: Paciente diagnosticado, mas não iniciou o tratamento.'
 );
 
-INSERT INTO banco_metadados (nome_tabela, descricao_tabela, exemplo_valores) VALUES (
+INSERT INTO banco_metadados (nome_tabela, descricao_tabela, categorias) VALUES (
 'bacilosc_2mes',
 'Baciloscopia no 2º Mês refere-se ao resultado do exame de baciloscopia realizado dois meses após o início do tratamento para tuberculose',
 'Os possíveis resultados são:
@@ -149,7 +149,7 @@ Não realizado: Exame não foi feito por qualquer motivo.
 Não se aplica: Situação em que a realização do exame não é necessária para o caso.'
 );
 
-INSERT INTO banco_metadados (nome_tabela, descricao_tabela, exemplo_valores) VALUES (
+INSERT INTO banco_metadados (nome_tabela, descricao_tabela, categorias) VALUES (
 'tdo_realizado',
 'TDO Realizado refere-se à observação direta do tratamento da tuberculose, em que um profissional de saúde supervisiona a administração dos medicamentos pelo paciente',
 'As possíveis situações são:
@@ -157,14 +157,14 @@ Sim: O paciente realizou o tratamento diretamente observado (TDO) conforme recom
 Não: O paciente não realizou o tratamento sob observação direta.'
 );
 
-INSERT INTO banco_metadados (nome_tabela, descricao_tabela, exemplo_valores) VALUES (
+INSERT INTO banco_metadados (nome_tabela, descricao_tabela, categorias) VALUES (
 'antirretroviral',
 'Uso de Antirretroviral refere-se à administração de medicamentos antirretrovirais para pacientes com tuberculose que também vivem com HIV',
 'As possíveis situações são Ign/Branco. Sim: O paciente faz uso de terapia antirretroviral (TARV) para o tratamento do HIV.
 Não: O paciente não faz uso de terapia antirretroviral.'
 );
 
-INSERT INTO banco_metadados (nome_tabela, descricao_tabela, exemplo_valores) VALUES (
+INSERT INTO banco_metadados (nome_tabela, descricao_tabela, categorias) VALUES (
 'hiv',
 'Status de HIV refere-se ao resultado do teste para o vírus da imunodeficiência humana (HIV) em pacientes com tuberculose.',
 'As possíveis situações são:
@@ -175,7 +175,7 @@ Em andamento: Teste foi realizado, mas o resultado ainda não está disponível.
 Não realizado: Teste não foi feito por qualquer motivo.'
 );
 
-INSERT INTO banco_metadados (nome_tabela, descricao_tabela, exemplo_valores) VALUES (
+INSERT INTO banco_metadados (nome_tabela, descricao_tabela, categorias) VALUES (
 'teste_sensibilidade',
 'Teste de Sensibilidade refere-se à análise laboratorial que avalia a resposta da tuberculose aos medicamentos usados no tratamento.',
 'Os possíveis resultados são:
@@ -189,7 +189,7 @@ Em andamento: Teste foi realizado, mas o resultado ainda não está disponível.
 Não realizado: O exame não foi feito'
 );
 
-INSERT INTO banco_metadados (nome_tabela, descricao_tabela, exemplo_valores) VALUES (
+INSERT INTO banco_metadados (nome_tabela, descricao_tabela, categorias) VALUES (
 'teste_rapido_tb',
 'Teste Rápido para Tuberculose (TB) refere-se a um exame molecular utilizado para detectar a presença do bacilo da tuberculose e sua resistência à Rifampicina, um dos principais medicamentos do tratamento.',
 'Os possíveis resultados são:
@@ -201,7 +201,7 @@ Inconclusivo: O exame não forneceu um resultado definitivo, podendo ser necess�
 Não realizado: O teste não foi feito.'
 );
 
-INSERT INTO banco_metadados (nome_tabela, descricao_tabela, exemplo_valores) VALUES (
+INSERT INTO banco_metadados (nome_tabela, descricao_tabela, categorias) VALUES (
 'cultura_escarro',
 'Cultura de Escarro é um exame laboratorial utilizado para diagnosticar a tuberculose, detectando a presença do Mycobacterium tuberculosis em amostras de escarro',
 'Os possíveis resultados são:
@@ -212,7 +212,7 @@ Em andamento: O exame foi realizado, mas o resultado ainda não está disponíve
 Não realizado: O teste não foi feito.'
 );
 
-INSERT INTO banco_metadados (nome_tabela, descricao_tabela, exemplo_valores) VALUES (
+INSERT INTO banco_metadados (nome_tabela, descricao_tabela, categorias) VALUES (
 'bac_escarro2',
 '2ª Baciloscopia de Escarro refere-se a um segundo exame de baciloscopia realizado para monitoramento ou confirmação da tuberculose',
 'Os possíveis resultados são:
@@ -222,7 +222,7 @@ Negativo: O exame não detectou o bacilo, sugerindo boa resposta ao tratamento.
 Não realizado: O teste não foi feito.'
 );
 
-INSERT INTO banco_metadados (nome_tabela, descricao_tabela, exemplo_valores) VALUES (
+INSERT INTO banco_metadados (nome_tabela, descricao_tabela, categorias) VALUES (
 'confirmacao_laboratorial',
 'Confirmação Laboratorial refere-se à verificação da presença do Mycobacterium tuberculosis por meio de exames laboratoriais',
 'Os possíveis status são:
@@ -230,7 +230,7 @@ Com Confirmação Laboratorial: Casos em que a tuberculose foi diagnosticada por
 Sem Confirmação Laboratorial: Casos diagnosticados clinicamente, sem confirmação por exames laboratoriais.'
 );
 
-INSERT INTO banco_metadados (nome_tabela, descricao_tabela, exemplo_valores) VALUES (
+INSERT INTO banco_metadados (nome_tabela, descricao_tabela, categorias) VALUES (
 'outra_doenca',
 'Presença de Outra Doença indica se o paciente com tuberculose possui outra condição de saúde associada',
 'Os possíveis status são:
@@ -239,7 +239,7 @@ Sim: O paciente possui outra doença além da tuberculose.
 Não: O paciente não apresenta outra doença associada.'
 );
 
-INSERT INTO banco_metadados (nome_tabela, descricao_tabela, exemplo_valores) VALUES (
+INSERT INTO banco_metadados (nome_tabela, descricao_tabela, categorias) VALUES (
 'tabagismo',
 'Tabagismo refere-se ao histórico de uso de tabaco pelo paciente com tuberculose.',
 'Os possíveis status são:
@@ -248,7 +248,7 @@ Sim: O paciente é ou foi fumante.
 Não: O paciente não tem histórico de tabagismo.'
 );
 
-INSERT INTO banco_metadados (nome_tabela, descricao_tabela, exemplo_valores) VALUES (
+INSERT INTO banco_metadados (nome_tabela, descricao_tabela, categorias) VALUES (
 'drogas_ilicitas',
 'Uso de Drogas Ilícitas refere-se ao histórico de consumo de substâncias ilícitas por pacientes com tuberculose.',
 'Os possíveis status são:
@@ -257,7 +257,7 @@ Sim: O paciente faz ou fez uso de drogas ilícitas.
 Não: O paciente não tem histórico de uso de drogas ilícitas.'
 );
 
-INSERT INTO banco_metadados (nome_tabela, descricao_tabela, exemplo_valores) VALUES (
+INSERT INTO banco_metadados (nome_tabela, descricao_tabela, categorias) VALUES (
 'doenca_mental',
 'Doença Mental refere-se à presença de transtornos psiquiátricos diagnosticados em pacientes com tuberculose.',
 'Os possíveis status são:
@@ -266,7 +266,7 @@ Sim: O paciente possui diagnóstico de doença mental.
 Não: O paciente não apresenta histórico de doença mental.'
 );
 
-INSERT INTO banco_metadados (nome_tabela, descricao_tabela, exemplo_valores) VALUES (
+INSERT INTO banco_metadados (nome_tabela, descricao_tabela, categorias) VALUES (
 'diabetes',
 'Diabetes refere-se à presença de diabetes mellitus em pacientes com tuberculose.',
 'Os possíveis status são:
@@ -275,7 +275,7 @@ Sim: O paciente tem diagnóstico de diabetes.
 Não: O paciente não tem histórico de diabetes.'
 );
 
-INSERT INTO banco_metadados (nome_tabela, descricao_tabela, exemplo_valores) VALUES (
+INSERT INTO banco_metadados (nome_tabela, descricao_tabela, categorias) VALUES (
 'imigrante',
 'Imigrante indica se o paciente é estrangeiro e reside em outro país ou se mudou recentemente para a região.',
 'Os possíveis status são:
@@ -284,7 +284,7 @@ Sim: O paciente é imigrante.
 Não: O paciente não é imigrante.'
 );
 
-INSERT INTO banco_metadados (nome_tabela, descricao_tabela, exemplo_valores) VALUES (
+INSERT INTO banco_metadados (nome_tabela, descricao_tabela, categorias) VALUES (
 'alcoolismo',
 'Alcoolismo refere-se ao consumo excessivo e contínuo de álcool pelo paciente com tuberculose.',
 'Os possíveis status são:
@@ -293,7 +293,7 @@ Sim: O paciente faz ou fez uso abusivo de álcool.
 Não: O paciente não tem histórico de alcoolismo.'
 );
 
-INSERT INTO banco_metadados (nome_tabela, descricao_tabela, exemplo_valores) VALUES (
+INSERT INTO banco_metadados (nome_tabela, descricao_tabela, categorias) VALUES (
 'ppl',
 'PPL refere-se a pacientes que encontram-se ou já estiveram em situação de privação de liberdade, como em presídios.',
 'Os possíveis status são:
@@ -302,7 +302,7 @@ Sim: O paciente é ou foi privado de liberdade.
 Não: O paciente não tem histórico de privação de liberdade.'
 );
 
-INSERT INTO banco_metadados (nome_tabela, descricao_tabela, exemplo_valores) VALUES (
+INSERT INTO banco_metadados (nome_tabela, descricao_tabela, categorias) VALUES (
 'aids',
 'AIDS refere-se ao diagnóstico de Síndrome da Imunodeficiência Adquirida (AIDS) em pacientes com tuberculose.',
 'Os possíveis status são:
@@ -311,7 +311,7 @@ Sim: O paciente tem diagnóstico de AIDS.
 Não: O paciente não tem diagnóstico de AIDS.'
 );
 
-INSERT INTO banco_metadados (nome_tabela, descricao_tabela, exemplo_valores) VALUES (
+INSERT INTO banco_metadados (nome_tabela, descricao_tabela, categorias) VALUES (
 'extra_pulm1',
 'Extra Pulmonar indica se a tuberculose do paciente tem manifestação fora dos pulmões, como em ossos, rins ou sistema nervoso.',
 'Os possíveis status são:
@@ -320,7 +320,7 @@ Sim: O paciente tem tuberculose extrapulmonar.
 Não: O paciente não tem tuberculose extrapulmonar.'
 );
 
-INSERT INTO banco_metadados (nome_tabela, descricao_tabela, exemplo_valores) VALUES (
+INSERT INTO banco_metadados (nome_tabela, descricao_tabela, categorias) VALUES (
 'benef_governo',
 'Benefício do Governo indica se o paciente recebe algum tipo de auxílio financeiro ou social do governo.',
 'Os possíveis status são:
@@ -329,7 +329,7 @@ Sim: O paciente recebe benefício governamental.
 Não: O paciente não recebe benefício governamental.'
 );
 
-INSERT INTO banco_metadados (nome_tabela, descricao_tabela, exemplo_valores) VALUES (
+INSERT INTO banco_metadados (nome_tabela, descricao_tabela, categorias) VALUES (
 'pop_sit_rua',
 'População em Situação de Rua indica se o paciente está ou esteve em situação de rua.',
 'Os possíveis status são:
@@ -338,7 +338,7 @@ Sim: O paciente está ou esteve em situação de rua.
 Não: O paciente nunca esteve em situação de rua.'
 );
 
-INSERT INTO banco_metadados (nome_tabela, descricao_tabela, exemplo_valores) VALUES (
+INSERT INTO banco_metadados (nome_tabela, descricao_tabela, categorias) VALUES (
 'prof_saude',
 'Profissional de Saúde indica se o paciente trabalha ou já trabalhou na área da saúde, possivelmente com exposição à tuberculose.',
 'Os possíveis status são:
@@ -347,7 +347,7 @@ Sim: O paciente é ou foi profissional de saúde.
 Não: O paciente não tem histórico de atuação na área da saúde.'
 );
 
-INSERT INTO banco_metadados (nome_tabela, descricao_tabela, exemplo_valores) VALUES (
+INSERT INTO banco_metadados (nome_tabela, descricao_tabela, categorias) VALUES (
 'institucionalizado',
 'Institucionalizado refere-se a pacientes que vivem ou viveram em instituições de longa permanência, como abrigos ou casas de repouso.',
 'Os possíveis status são:
@@ -356,7 +356,7 @@ Sim: O paciente vive ou viveu institucionalizado.
 Não: O paciente não tem histórico de institucionalização.'
 );
 
-INSERT INTO banco_metadados (nome_tabela, descricao_tabela, exemplo_valores) VALUES (
+INSERT INTO banco_metadados (nome_tabela, descricao_tabela, categorias) VALUES (
 'tipos_entrada',
 'Tipos de Entrada refere-se à forma como o paciente foi identificado e inserido no sistema de acompanhamento da tuberculose.',
 'Os possíveis status são:
@@ -368,7 +368,7 @@ Pós-Tratamento de TB-DR: Paciente que finalizou tratamento para Tuberculose Dro
 Transferência: Paciente transferido de outra unidade ou local para continuidade do tratamento.'
 );
 
-INSERT INTO banco_metadados (nome_tabela, descricao_tabela, exemplo_valores) VALUES (
+INSERT INTO banco_metadados (nome_tabela, descricao_tabela, categorias) VALUES (
 'sexo',
 'Sexo refere-se à identificação de gênero do paciente com tuberculose.',
 'Os possíveis status são:
