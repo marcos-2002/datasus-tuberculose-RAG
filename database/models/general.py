@@ -5,8 +5,7 @@ class Fatos(Model):
     id = fields.BigIntField(primary_key=True)
     data = fields.DateField()
     ano_nasc = fields.CharField(max_length=50)
-    uf_resid = fields.ForeignKeyField("models.UFResid", related_name="facts", null=True)
-    municipio_resid = fields.ForeignKeyField("models.MunicipioResid", related_name="facts", null=True)
+    uf = fields.ForeignKeyField("models.UF", related_name="facts", null=True)
     ppl = fields.ForeignKeyField("models.PPL", related_name="facts", null=True)
     raca = fields.ForeignKeyField("models.Raca", related_name="facts", null=True)
     sexo = fields.ForeignKeyField("models.Sexo", related_name="facts", null=True)
@@ -34,7 +33,8 @@ class Fatos(Model):
     antirretroviral = fields.ForeignKeyField("models.Antirretroviral", related_name="facts", null=True)
     #bacilosc_2mes = fields.ForeignKeyField("models.Bacilosc2Mes", related_name="facts", null=True)
     #bacilosc_6mes = fields.ForeignKeyField("models.Bacilosc6Mes", related_name="facts", null=True)
-    #situacao_encerra = fields.ForeignKeyField("models.SituacaoEncerra", related_name="facts", null=True)
+    situacao_encerra = fields.ForeignKeyField("models.SituacaoEncerra", related_name="facts", null=True)
+    faixa_etar = fields.ForeignKeyField("models.FaixaEtar", related_name="facts", null=True)
     criado_em = fields.DatetimeField(auto_now_add=True, null=True)
 
     class Meta:
@@ -48,3 +48,13 @@ class BancoMetadados(Model):
     
     class Meta:
         table = "banco_metadados"
+
+class MensagensChat(Model):
+    id = fields.BigIntField(primary_key=True)
+    chat_id = fields.BigIntField()
+    sender = fields.CharField(max_length=10)
+    content = fields.TextField()
+    criado_em = fields.DatetimeField(auto_now_add=True, null=True)
+    
+    class Meta:
+        table = "menssagens_chat"

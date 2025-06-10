@@ -1,14 +1,14 @@
 from tortoise.models import Model
 from tortoise import fields
 
-class UFResid(Model):
+class UF(Model):
     id = fields.BigIntField(primary_key=True)
     nome = fields.CharField(max_length=5000)
     
     criado_em = fields.DatetimeField(auto_now_add=True)
 
     class Meta:
-        table = "uf_resid"
+        table = "uf"
 
     def __str__(self):
         return self.nome
@@ -363,6 +363,17 @@ class SituacaoEncerra(Model):
 
     class Meta:
         table = "situacao_encerra"
+
+    def __str__(self):
+        return self.nome
+
+class FaixaEtar(Model):
+    id = fields.BigIntField(primary_key=True)
+    nome = fields.CharField(max_length=5000)
+    criado_em = fields.DatetimeField(auto_now_add=True)
+
+    class Meta:
+        table = "faixa_etar"
 
     def __str__(self):
         return self.nome

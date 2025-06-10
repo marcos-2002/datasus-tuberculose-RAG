@@ -175,7 +175,7 @@ CREATE TABLE IF NOT EXISTS "tipo_entrada" (
     "nome" VARCHAR(5000) NOT NULL,
     "criado_em" TIMESTAMPTZ NOT NULL  DEFAULT CURRENT_TIMESTAMP
 );
-CREATE TABLE IF NOT EXISTS "uf_resid" (
+CREATE TABLE IF NOT EXISTS "uf" (
     "id" BIGSERIAL NOT NULL PRIMARY KEY,
     "nome" VARCHAR(5000) NOT NULL,
     "criado_em" TIMESTAMPTZ NOT NULL  DEFAULT CURRENT_TIMESTAMP
@@ -211,8 +211,19 @@ CREATE TABLE IF NOT EXISTS "fatos" (
     "teste_rapido_tb_id" BIGINT REFERENCES "teste_rapido_tb" ("id") ON DELETE CASCADE,
     "teste_sensibilidade_id" BIGINT REFERENCES "teste_sensibilidade" ("id") ON DELETE CASCADE,
     "tipo_entrada_id" BIGINT REFERENCES "tipo_entrada" ("id") ON DELETE CASCADE,
-    "uf_resid_id" BIGINT REFERENCES "uf_resid" ("id") ON DELETE CASCADE
-);"""
+    "uf_id" BIGINT REFERENCES "uf" ("id") ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS "menssagens_chat" (
+    "id" BIGSERIAL NOT NULL PRIMARY KEY,
+    "chat_id" BIGINT NOT NULL,
+    "sender" VARCHAR(10) NOT NULL,
+    "content" TEXT NOT NULL,
+    "criado_em" TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
+"""
+
 
 
 async def downgrade(db: BaseDBAsyncClient) -> str:

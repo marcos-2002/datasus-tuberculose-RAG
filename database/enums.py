@@ -7,14 +7,11 @@ class DimensionEnum(Enum):
     """
     Each entry is structured as: (name, foreign_key_column)
     """
-    TIPO_ENTRADA = "TRATAMENTO", "tipo_entrada"
+    TIPO_ENTRADA = "TRATAMENTO", "tipo_entrada_id"
     RACA = "CS_RACA", "raca_id",
     SEXO = "CS_SEXO", "sexo_id"
     POP_LIBER = "POP_LIBER", "ppl_id", 
     POP_RUA = "POP_RUA", "pop_sit_rua_id", 
-    #POP_SAUDE = "POP_SAUDE", "prof_saude_id", 
-    #POP_IMIG = "POP_IMIG","imigrante_id", 
-    BENEF_GOV = "BENEF_GOV", "benef_governo_id", 
     FORMA = "FORMA", "forma_id", 
     EXTRAPU1_N = "EXTRAPU1_N", "extra_pulm1_id", 
     EXTRAPUL_O = "EXTRAPUL_O", "territ_cidadania_notif_id", 
@@ -29,13 +26,17 @@ class DimensionEnum(Enum):
     HIV = "HIV", "hiv_id", 
     ANTIRRETROVIRAL = "ANTIRRETROVIRAL", "antirretroviral_id", 
     CULTURA_ES = "CULTURA_ES", "cultura_escarro_id", 
-    TESTE_MOLEC = "TEST_MOLEC", "teste_molec_id", 
-    TEST_SENSIBILID = "TEST_SENSI", "teste_sensibilidade_id", 
     BACILOSC_2 = "BACILOSC_2",  "bacilosc_2mes_id", 
     BACILOSC_6 = "BACILOSC_6", "bacilosc_6mes_id", 
-    SITUA_ENCE = "SITUA_ENCE", "situacao_encerra_id", 
+    SITUA_ENCE = "SITUA_ENCE", "situacao_encerra_id",
     DATA = "DT_NOTIFIC", "data",
     ANO_NASC = "ANO_NASC", "ano_nasc"
+    UF = "SG_UF", "uf_id"
+    #TESTE_MOLEC = "TEST_MOLEC", "teste_molec_id", 
+    #POP_SAUDE = "POP_SAUDE", "prof_saude_id", 
+    #POP_IMIG = "POP_IMIG","imigrante_id", 
+    #BENEF_GOV = "BENEF_GOV", "benef_governo_id", 
+    #TEST_SENSIBILID = "TEST_SENSI", "teste_sensibilidade_id", 
     
     @property
     def ref(self):

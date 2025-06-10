@@ -9,7 +9,7 @@ class ContextConstructor:
         self.question = question 
 
     async def create_context(self):
-        #embedding = self.llm_service.generate_embedding(self.question)
+        embedding = await self.llm_service.generate_embedding(self.question)
 
         #similar_questions = await self.db_service.find_most_similar("perguntas_exemplos", embedding, 10)
         #last_messages = await self.db_service.read_records("mensagens", 10)

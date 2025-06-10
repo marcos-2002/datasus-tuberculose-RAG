@@ -1,3 +1,4 @@
+db_context = """
 -- Inserções para a tabela tipo_entrada
 INSERT INTO tipo_entrada (id, nome) VALUES (1, 'Caso Novo');
 INSERT INTO tipo_entrada (id, nome) VALUES (2, 'Recidiva');
@@ -194,3 +195,5 @@ INSERT INTO uf (id, nome) VALUES
 (28, 'Sergipe'),
 (35, 'São Paulo'),
 (17, 'Tocantins');
+
+"""

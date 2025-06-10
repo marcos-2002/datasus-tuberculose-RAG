@@ -62,3 +62,4 @@ logs.txt
 locks
 
 /parquets
+**/parquets/

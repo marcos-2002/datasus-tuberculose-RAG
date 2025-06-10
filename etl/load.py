@@ -9,7 +9,7 @@ class Loader:
         print(len(rows))
         
         for row in rows:
-            event = Fatos(**row) 
+            event = Fatos(**row)
             events.append(event)
 
         if events:

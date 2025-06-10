@@ -1,6 +1,6 @@
 from rag.services.db_service import DatabaseService
 from rag.services.llm_service import LLM_service
-
+from database.models.general import MensagensChat
 
 class AnswerContructor:
     _QUERY_PROMPT = """
@@ -31,6 +31,11 @@ class AnswerContructor:
             context=[f"Dados obtidos no banco de dados: f{result_data}"],
             question=self.question,
         )
-        print(final_answer)
+        
+        await MensagensChat.create(
+            chat_id=1, 
+            sender="bot", 
+            content=final_answer
+        )
 
         return final_answer

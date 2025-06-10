@@ -21,3 +21,6 @@ class LLM_service:
             contents=messages,
         )
         return response.text
+    
+    async def generate_embedding(self, question):
+        return [1, 1, 1, 1]
