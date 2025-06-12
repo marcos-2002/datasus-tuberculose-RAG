@@ -5,7 +5,7 @@ config = Config()
 
 class LLM_service:
     def __init__(self):
-        self.client = genai.Client(api_key=config.LLM_KEY)
+        self.client = genai.Client(api_key="AIzaSyAqzEgGxmdLpFPuwQ5SOJ2eslqdqvOdsak")
 
     async def ask_question(self, instructions: str, context: list[str], question: str):
         messages = [
@@ -17,7 +17,7 @@ class LLM_service:
             messages[-1]["parts"].append({"text": ctx})
 
         response = self.client.models.generate_content(
-            model="gemini-1.5-flash",
+            model="gemini-2.0-flash",
             contents=messages,
         )
         return response.text
