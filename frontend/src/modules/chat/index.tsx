@@ -58,7 +58,7 @@ export default function ChatPage() {
         setLoading(true)
 
         try {
-            const response = await axios.post('http://127.0.0.1:8000/chat-message', { question: inputValue })
+            const response = await axios.post('http://localhost:8000/chat-message', { question: inputValue })
             const newMessage: Message = {
                 content: response.data.answer,
                 position: 'L',
