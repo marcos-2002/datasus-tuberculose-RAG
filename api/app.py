@@ -26,7 +26,7 @@ def hello():
 
 @app.route('/etl', methods=['GET'])
 async def etl():
-    years = [str(i) for i in range(2020, 2024)]  
+    years = [str(i) for i in range(2021, 2024)]  
     months = [i for i in range(1, 13)]
     
     etl = ETL()
