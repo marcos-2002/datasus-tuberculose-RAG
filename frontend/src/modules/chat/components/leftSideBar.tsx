@@ -8,7 +8,6 @@ import {
     Calendar,
     Globe,
     Users,
-    Activity,
 } from "lucide-react"
 
 const LeftSideBar = () => {
