@@ -1,3 +1,92 @@
-Qual o número de casos no estado do Maranhão em 2023?
-Qual é a distribuição dos casos de tuberculose por situação de encerramento?
-Qual é o impacto do TDO no número de casos curados?
+🔥 Perguntas de Alta Prioridade para Políticas Públicas
+🎯 Perfil da População Atingida
+Qual é a faixa etária com maior incidência de tuberculose? (Fx Etária, Fx Etária 7, Fx Etária 13)
+
+Há diferenças na incidência de tuberculose entre homens e mulheres? (Sexo)
+
+Qual é a distribuição de casos por raça/cor? (Raça)
+
+Qual a proporção de pessoas em situação de rua entre os casos notificados? (Pop. Sit. Rua)
+
+Qual a prevalência de tuberculose entre pessoas privadas de liberdade (PPL)? (PPL)
+
+Qual é o percentual de imigrantes entre os casos notificados? (Imigrante)
+
+Quantos dos casos notificados estavam institucionalizados (asilos, abrigos, hospitais psiquiátricos)? (Institucionalizado)
+
+Qual a incidência da doença entre profissionais de saúde? (Prof. saúde)
+
+Quantos pacientes eram beneficiários de programas do governo? (Benefic. governo)
+
+⚠️ Perguntas sobre Vulnerabilidades e Comorbidades
+Quantos pacientes com tuberculose também vivem com HIV/AIDS? (HIV, Aids)
+
+Qual a taxa de coinfecção TB/HIV que faz uso de antirretrovirais? (HIV, Antirretroviral)
+
+Qual a prevalência de alcoolismo entre os pacientes com tuberculose? (Alcoolismo)
+
+Qual a proporção de pacientes com uso de drogas ilícitas? (Drogas ilícitas)
+
+Quantos pacientes com tuberculose também possuem diabetes? (Diabetes)
+
+Há uma associação entre tuberculose e tabagismo? (Tabagismo)
+
+Quantos pacientes possuem doenças mentais associadas? (Doença mental)
+
+Qual a prevalência de outras doenças não especificadas? (Outra doença)
+
+🔍 Diagnóstico e Forma Clínica
+Quantos casos foram confirmados por exame laboratorial? (Confirmação laboratorial)
+
+Qual a proporção de casos com baciloscopia positiva no escarro (1ª e 2ª)? (1ªBac Escarro, 2ªBac. Escarro)
+
+Quantos foram confirmados por cultura de escarro? (Cultura Escarro)
+
+Quantos casos utilizaram teste rápido para diagnóstico? (Teste rápido TB)
+
+Quantos casos realizaram teste de sensibilidade (para resistência a medicamentos)? (Teste sensibilidade)
+
+Qual é a forma clínica predominante da doença? (Forma)
+
+Quantos casos apresentaram formas extrapulmonares? (Se Extrapulm.1, Se Extrapulm.2)
+
+Qual o tipo de entrada mais comum: caso novo, recidiva, retorno após abandono, etc.? (Tipo de entrada)
+
+🩺 Acompanhamento e Tratamento
+Quantos pacientes realizaram Tratamento Diretamente Observado (TDO)? (TDO realizado)
+
+Quantos apresentaram baciloscopia positiva no 2º mês de tratamento? (Bacilosc 2º mês)
+
+Quantos mantiveram positividade no 6º mês (indicativo de falha terapêutica)? (Bacilosc 6º mês)
+
+✅ Resultados e Desfechos
+Qual a taxa de cura entre os casos notificados? (Situação Encerra.)
+
+Qual a taxa de abandono de tratamento?
+
+Quantos casos evoluíram para óbito por tuberculose?
+
+Quantos óbitos ocorreram por outras causas durante o tratamento da TB?
+
+🧠 Outras Perguntas Estratégicas
+Existe associação entre uso de drogas ilícitas e abandono do tratamento?
+
+Profissionais de saúde têm maior taxa de cura por detectarem precocemente?
+
+Há relação entre institucionalização e maior incidência de formas extrapulmonares?
+
+Populações vulneráveis (rua, PPL, imigrantes) apresentam piores desfechos de tratamento?
+
+O percentual de TDO é maior entre populações de risco?
+
+A coinfecção TB/HIV afeta os desfechos (cura, óbito, abandono)?
+
+Se quiser, posso ajudar a transformar essas perguntas em consultas SQL, dashboards ou relatórios analíticos. Deseja isso?
+
+
+
+
+
+
+
+
