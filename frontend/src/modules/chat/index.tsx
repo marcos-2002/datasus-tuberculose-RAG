@@ -25,6 +25,8 @@ type Message = {
 }
 
 export default function ChatPage() {
+    const baseURL = import.meta.env.VITE_API_URL 
+
     const [messages, setMessages] = useState<Message[]>([
         {
             content: "Bem-vindo ao EpiTB Research. Como posso ajudar em sua pesquisa epidemiológica hoje?",
@@ -58,7 +60,7 @@ export default function ChatPage() {
         setLoading(true)
 
         try {
-            const response = await axios.post('https://tcc.api.thiagoandre.dev.br/chat-message', { question: inputValue })
+            const response = await axios.post(`${baseURL}/chat-message`, { question: inputValue })
             const newMessage: Message = {
                 content: response.data.answer,
                 position: 'L',
