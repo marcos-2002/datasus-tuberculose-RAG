@@ -1,92 +1,86 @@
-🔥 Perguntas de Alta Prioridade para Políticas Públicas
-🎯 Perfil da População Atingida
-Qual é a faixa etária com maior incidência de tuberculose? (Fx Etária, Fx Etária 7, Fx Etária 13)
+🔝 1. Perfil populacional e distribuição
+Qual a distribuição de casos de tuberculose por faixa etária e sexo?
 
-Há diferenças na incidência de tuberculose entre homens e mulheres? (Sexo)
+Qual a distribuição de casos por raça/cor?
 
-Qual é a distribuição de casos por raça/cor? (Raça)
+Quais estados apresentam as maiores taxas de notificação de tuberculose?
 
-Qual a proporção de pessoas em situação de rua entre os casos notificados? (Pop. Sit. Rua)
+Qual é a forma clínica (pulmonar/extrapulmonar) mais prevalente por região/UF?
 
-Qual a prevalência de tuberculose entre pessoas privadas de liberdade (PPL)? (PPL)
+Qual é a distribuição dos casos de tuberculose entre populações vulneráveis (PPL, população em situação de rua, imigrantes)?
 
-Qual é o percentual de imigrantes entre os casos notificados? (Imigrante)
+Há correlação entre raça/cor e forma clínica da tuberculose?
 
-Quantos dos casos notificados estavam institucionalizados (asilos, abrigos, hospitais psiquiátricos)? (Institucionalizado)
+A população com benefício de governo está mais suscetível à tuberculose?
 
-Qual a incidência da doença entre profissionais de saúde? (Prof. saúde)
-
-Quantos pacientes eram beneficiários de programas do governo? (Benefic. governo)
-
-⚠️ Perguntas sobre Vulnerabilidades e Comorbidades
-Quantos pacientes com tuberculose também vivem com HIV/AIDS? (HIV, Aids)
-
-Qual a taxa de coinfecção TB/HIV que faz uso de antirretrovirais? (HIV, Antirretroviral)
-
-Qual a prevalência de alcoolismo entre os pacientes com tuberculose? (Alcoolismo)
-
-Qual a proporção de pacientes com uso de drogas ilícitas? (Drogas ilícitas)
-
-Quantos pacientes com tuberculose também possuem diabetes? (Diabetes)
-
-Há uma associação entre tuberculose e tabagismo? (Tabagismo)
-
-Quantos pacientes possuem doenças mentais associadas? (Doença mental)
-
-Qual a prevalência de outras doenças não especificadas? (Outra doença)
-
-🔍 Diagnóstico e Forma Clínica
-Quantos casos foram confirmados por exame laboratorial? (Confirmação laboratorial)
-
-Qual a proporção de casos com baciloscopia positiva no escarro (1ª e 2ª)? (1ªBac Escarro, 2ªBac. Escarro)
-
-Quantos foram confirmados por cultura de escarro? (Cultura Escarro)
-
-Quantos casos utilizaram teste rápido para diagnóstico? (Teste rápido TB)
-
-Quantos casos realizaram teste de sensibilidade (para resistência a medicamentos)? (Teste sensibilidade)
-
-Qual é a forma clínica predominante da doença? (Forma)
-
-Quantos casos apresentaram formas extrapulmonares? (Se Extrapulm.1, Se Extrapulm.2)
-
-Qual o tipo de entrada mais comum: caso novo, recidiva, retorno após abandono, etc.? (Tipo de entrada)
-
-🩺 Acompanhamento e Tratamento
-Quantos pacientes realizaram Tratamento Diretamente Observado (TDO)? (TDO realizado)
-
-Quantos apresentaram baciloscopia positiva no 2º mês de tratamento? (Bacilosc 2º mês)
-
-Quantos mantiveram positividade no 6º mês (indicativo de falha terapêutica)? (Bacilosc 6º mês)
-
-✅ Resultados e Desfechos
-Qual a taxa de cura entre os casos notificados? (Situação Encerra.)
-
-Qual a taxa de abandono de tratamento?
-
-Quantos casos evoluíram para óbito por tuberculose?
-
-Quantos óbitos ocorreram por outras causas durante o tratamento da TB?
-
-🧠 Outras Perguntas Estratégicas
-Existe associação entre uso de drogas ilícitas e abandono do tratamento?
-
-Profissionais de saúde têm maior taxa de cura por detectarem precocemente?
-
-Há relação entre institucionalização e maior incidência de formas extrapulmonares?
-
-Populações vulneráveis (rua, PPL, imigrantes) apresentam piores desfechos de tratamento?
-
-O percentual de TDO é maior entre populações de risco?
-
-A coinfecção TB/HIV afeta os desfechos (cura, óbito, abandono)?
-
-Se quiser, posso ajudar a transformar essas perguntas em consultas SQL, dashboards ou relatórios analíticos. Deseja isso?
+Qual a proporção de profissionais de saúde infectados por tuberculose?
 
 
+⚕️ 2. Co-infecções e comorbidades
+Qual a prevalência de HIV entre os casos notificados de tuberculose?
+
+Qual a taxa de coinfecção TB-HIV por estado ou região?
+
+Qual a proporção de casos de tuberculose entre pessoas com diabetes?
+
+Qual o impacto do alcoolismo, uso de drogas ilícitas e tabagismo nos casos de tuberculose?
+
+Qual a proporção de casos com comorbidades como doença mental ou outras doenças associadas?
+
+Quantos pacientes HIV+ fazem uso de antirretroviral no momento do diagnóstico de TB?
 
 
+🧪 3. Diagnóstico e exames
+Qual a proporção de casos com diagnóstico confirmado por raio-X, cultura de escarro ou teste molecular?
+
+Quantos pacientes apresentam resistência à Rifampicina e/ou Isoniazida?
+
+Quantos testes moleculares indicam resistência à Rifampicina?
+
+Em quantos casos não foi realizado o teste de sensibilidade?
+
+Quantos exames estão em andamento, não realizados ou inconclusivos?
 
 
+📉 4. Desfechos do tratamento
+Qual a taxa de cura por estado, faixa etária ou população vulnerável?
 
+Qual a taxa de abandono de tratamento (inclusive abandono primário)?
+
+Qual a taxa de óbito por tuberculose versus óbito por outras causas?
+
+Qual a taxa de mudança de esquema terapêutico?
+
+Há associação entre resistência medicamentosa e desfecho desfavorável?
+
+Pessoas com comorbidades ou coinfecções têm maior taxa de abandono ou óbito?
+
+
+🔄 5. Tipo de entrada no sistema
+Qual a proporção de casos novos, recidivas, reingressos e transferências?
+
+Qual o perfil (etário, social, geográfico) dos pacientes reincidentes?
+
+Qual o desfecho mais comum entre reingressos e recidivas?
+
+Casos "pós-óbito" estão relacionados a que tipo de falhas no diagnóstico?
+
+🔬 6. Forma extrapulmonar da tuberculose
+Qual a distribuição dos tipos de formas extrapulmonares (pleural, ganglionar, óssea etc.)?
+
+Há maior prevalência de formas extrapulmonares em pessoas com HIV ou outras comorbidades?
+
+
+📊 7. Comparações e correlações avançadas
+Há diferença significativa entre os desfechos por sexo ou faixa etária?
+
+Existe correlação entre uso de álcool/drogas e abandono de tratamento?
+
+Estados com maior percentual de testes diagnósticos apresentam melhores desfechos?
+
+Imigrantes têm maior taxa de coinfecção TB-HIV ou resistência a medicamentos?
+
+Pessoas em situação de rua têm maior prevalência de formas extrapulmonares ou coinfecções?
+
+Há relação entre não realização de exames e maior taxa de abandono/óbito?
 
