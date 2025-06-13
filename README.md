@@ -49,6 +49,13 @@ Este projeto tem como objetivo auxiliar pesquisadores da área da saúde, especi
     docker exec -it api python3 seed_data.py
    ```
 
+6. Importe os dados do datasus
+
+   faça um get para
+   ```bash
+   http://localhost:8000/etl
+   ```
+
 6. Rode o frontend (no windows use copy em vez de cp)
    ```bash
       cd frontend
