@@ -17,7 +17,7 @@ class LLM_service:
             messages[-1]["parts"].append({"text": ctx})
 
         response = self.client.models.generate_content(
-            model="gemini-2.0-flash",
+            model="gemini-1.5-pro",
             contents=messages,
         )
         return response.text
