@@ -17,6 +17,7 @@ import Header from "./components/header"
 import { useEffect, useRef, useState } from "react"
 import axios from 'axios'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import ReactMarkdown from 'react-markdown'
 
 type Message = {
     content: string,
@@ -100,7 +101,9 @@ export default function ChatPage() {
                                     </div>
                                 )}
                                 <div className={`${msg.position === 'R' ? 'bg-blue-600 text-white' : 'bg-blue-50 text-gray-800'} rounded-lg p-3 max-w-2xl`}>
-                                    <p className="text-sm">{msg.content}</p>
+                                    <div className="prose prose-sm max-w-none">
+                                        <ReactMarkdown>{msg.content}</ReactMarkdown>
+                                    </div>
                                     <span className={`text-xs mt-1 block ${msg.position === 'R' ? 'text-blue-200' : 'text-gray-400'}`}>{msg.date}</span>
                                 </div>
                                 {msg.position === 'R' && (
