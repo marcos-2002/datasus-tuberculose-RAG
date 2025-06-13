@@ -16,6 +16,7 @@ import LeftSideBar from "./components/leftSideBar"
 import Header from "./components/header"
 import { useEffect, useRef, useState } from "react"
 import axios from 'axios'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 
 type Message = {
     content: string,
@@ -25,7 +26,7 @@ type Message = {
 }
 
 export default function ChatPage() {
-    const baseURL = import.meta.env.VITE_API_URL 
+    const baseURL = import.meta.env.VITE_API_URL
 
     const [messages, setMessages] = useState<Message[]>([
         {
@@ -36,6 +37,8 @@ export default function ChatPage() {
     ])
     const [inputValue, setInputValue] = useState("")
     const [loading, setLoading] = useState(false)
+    const [selectedSQL, setSelectedSQL] = useState<string | null>(null)
+
     const messagesEndRef = useRef<HTMLDivElement>(null)
 
     const scrollToBottom = () => {
@@ -67,7 +70,7 @@ export default function ChatPage() {
                 date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
                 sql: response.data.sql && response.data.sql != "" ? response.data.sql : null
             }
-            console.log()
+            console.log(response.data)
             setMessages(prev => [...prev, newMessage])
         } catch (e) {
             console.error("Erro ao enviar mensagem:", e)
@@ -105,9 +108,31 @@ export default function ChatPage() {
                                         <Users className="w-3.5 h-3.5 text-gray-500" />
                                     </div>
                                 )}
-                                {
-                                    msg.sql && <div> {msg.sql}</div> 
-                                }
+                                {msg.sql && msg.position === 'L' && (
+                                    <Dialog>
+                                        <DialogTrigger asChild>
+                                            <Button
+                                                variant="ghost"
+                                                className="text-xs mt-2 text-blue-600 hover:underline p-0 h-auto"
+                                                onClick={() => setSelectedSQL(msg.sql!)}
+                                            >
+                                                Detalhes
+                                            </Button>
+                                        </DialogTrigger>
+                                        <DialogContent className="max-w-lg">
+                                            <DialogHeader>
+                                                <DialogTitle>Consulta SQL utilizada</DialogTitle>
+                                                <DialogDescription>
+                                                    Para responder essa pergunta, eu executei o seguinte SQL no banco de dados para obter os dados:
+                                                </DialogDescription>
+                                            </DialogHeader>
+                                            <pre className="text-xs bg-gray-100 p-3 rounded whitespace-pre-wrap break-words max-h-[300px] overflow-auto">
+                                                {selectedSQL}
+                                            </pre>
+                                        </DialogContent>
+                                    </Dialog>
+                                )}
+
                             </div>
                         ))}
                         <div ref={messagesEndRef} />
