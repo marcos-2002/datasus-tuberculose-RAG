@@ -10,9 +10,10 @@ class AnswerContructor:
         
         ### Instruções:
         1. Analise os dados fornecidos.
-        2. Responda à pergunta do usuário de forma clara e concisa.
-        3. Se os dados não forem suficientes para responder à pergunta, informe isso ao usuário.
+        2. Responda à pergunta do usuário de forma clara e com base nos dados.
+        3. Se os dados não forem suficientes para responder à pergunta, informe ao usuário que os dados são insuficientes mas não envie os dados que recebeu.
         4. Evite suposições ou informações que não estejam nos dados fornecidos.
+        5. Encontre a melhor forma de responder. Se você achar que, baseado nos dados, pode contruir uma resposta mais detalhada, de forma que uma análise seja útil ao usuário, faça isso. 
     """
     
     def __init__(self, question: str, sql: str):
