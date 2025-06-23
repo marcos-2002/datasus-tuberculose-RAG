@@ -31,7 +31,7 @@ export default function ChatPage() {
 
     const [messages, setMessages] = useState<Message[]>([
         {
-            content: "Bem-vindo ao EpiTB Research. Como posso ajudar em sua pesquisa epidemiológica hoje?",
+            content: "Bem-vindo ao Epi Research. Como posso ajudar em sua pesquisa epidemiológica hoje?",
             position: 'L',
             date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         }

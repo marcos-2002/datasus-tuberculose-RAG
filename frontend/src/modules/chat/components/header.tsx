@@ -16,11 +16,11 @@ const Header = () => {
                         <Settings className="w-4 h-4 text-white" />
                     </div>
                     <div>
-                        <h1 className="text-base font-semibold text-gray-800">EpiTB Research</h1>
+                        <h1 className="text-base font-semibold text-gray-800">Epi Research</h1>
                         <p className="text-xs text-gray-500">Sistema de Pesquisa Epidemiológica</p>
                     </div>
                 </div>
-                <nav className="flex items-center space-x-6">
+                {/* <nav className="flex items-center space-x-6">
                     <Button variant="ghost" size="sm" className="text-gray-500 font-normal">
                         <Settings className="w-4 h-4 mr-2" />
                         Painel
@@ -37,7 +37,7 @@ const Header = () => {
                         <HelpCircle className="w-4 h-4 mr-2" />
                         Suporte
                     </Button>
-                </nav>
+                </nav> */}
             </div>
         </div>
     )
