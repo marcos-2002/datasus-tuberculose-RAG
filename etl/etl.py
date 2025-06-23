@@ -3,9 +3,9 @@ from etl.load import Loader
 from etl.transform import Transformer
 
 class ETL:
-    async def run(self, year, month):
+    async def run(self, year):
         extractor = Extractor()
-        data = await extractor.extract(year, month)
+        data = await extractor.extract(year)
      
         transformer = Transformer()
         parsed = transformer.parse(data)

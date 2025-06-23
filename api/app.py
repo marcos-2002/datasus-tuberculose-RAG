@@ -26,25 +26,23 @@ def hello():
 
 @app.route('/etl', methods=['GET'])
 async def etl():
-    years = [str(i) for i in range(2021, 2024)]  
-    months = [i for i in range(1, 13)]
+    years = [str(i) for i in range(2021, 2025)]  
+    #years = [2023]
     
     etl = ETL()
     erros = []
 
     for year in years:
-        for month in months:
-            try:
-                print(f'Importando {month}/{year}')
-                await etl.run(year, month)
-            except Exception as e:
-                erro = {
-                    "ano": year,
-                    "mes": month,
-                    "erro": str(e)
-                }
-                print(f"Erro ao importar {month}/{year}: {e}")
-                erros.append(erro)
+        try:
+            print(f'Importando {year}')
+            await etl.run(year)
+        except Exception as e:
+            erro = {
+                "ano": year,
+                "erro": str(e)
+            }
+            print(f"Erro ao importar {year}: {e}")
+            erros.append(erro)
 
     if erros:
         with open('erros_etl.json', 'w', encoding='utf-8') as f:

@@ -31,7 +31,7 @@ class DimensionEnum(Enum):
     SITUA_ENCE = "SITUA_ENCE", "situacao_encerra_id",
     DATA = "DT_NOTIFIC", "data",
     ANO_NASC = "ANO_NASC", "ano_nasc"
-    UF = "SG_UF", "uf_id"
+    UF = "SG_UF_NOT", "uf_id"
     #TESTE_MOLEC = "TEST_MOLEC", "teste_molec_id", 
     #POP_SAUDE = "POP_SAUDE", "prof_saude_id", 
     #POP_IMIG = "POP_IMIG","imigrante_id", 
