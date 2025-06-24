@@ -1,8 +1,8 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { useEffect, useRef, useState } from "react"
+import axios from "axios"
+import ReactMarkdown from "react-markdown"
 import {
     Settings,
     Paperclip,
@@ -12,38 +12,80 @@ import {
     Users,
     Loader2,
 } from "lucide-react"
+
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
 import LeftSideBar from "./components/leftSideBar"
 import Header from "./components/header"
-import { useEffect, useRef, useState } from "react"
-import axios from 'axios'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import ReactMarkdown from 'react-markdown'
+import { toast } from "@/hooks/use-toast"
 
 type Message = {
-    content: string,
-    position: 'R' | 'L',
-    date: string,
-    sql?: string | null,
+    content: string
+    position: "R" | "L"
+    date: string
+    sql?: string | null
 }
+
+const availableDataList = [
+    "Tipo de entrada do paciente",
+    "Raça",
+    "Sexo",
+    "População privada de liberdade",
+    "População em situação de rua",
+    "Forma clínica da tuberculose",
+    "Tuberculose extrapulmonar",
+    "Território de cidadania",
+    "Coinfecção com AIDS",
+    "Alcoolismo",
+    "Diabetes",
+    "Doença mental",
+    "Uso de drogas ilícitas",
+    "Tabagismo",
+    "Outras doenças associadas",
+    "Resultado de raio-x de tórax",
+    "Status HIV",
+    "Uso de antirretrovirais",
+    "Cultura de escarro",
+    "Baciloscopia (2 e 6 meses)",
+    "Situação de encerramento do caso",
+    "Ano de nascimento",
+    "Data da notificação",
+    "Estado (UF)",
+]
 
 export default function ChatPage() {
     const baseURL = import.meta.env.VITE_API_URL
 
     const [messages, setMessages] = useState<Message[]>([
         {
-            content: "Bem-vindo ao Epi Research. Como posso ajudar em sua pesquisa epidemiológica hoje?",
-            position: 'L',
-            date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-        }
+            content: `Bem-vindo ao Epi Research! 👋
+
+Sou seu assistente de pesquisa epidemiológica, especializado em dados sobre tuberculose.
+
+Clique no botão "Ver informações disponíveis" para ver quais informações eu tenho disponível para responder.`,
+            position: "L",
+            date: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+        },
     ])
     const [inputValue, setInputValue] = useState("")
     const [loading, setLoading] = useState(false)
     const [selectedSQL, setSelectedSQL] = useState<string | null>(null)
+    const [isDataModalOpen, setIsDataModalOpen] = useState(false)
 
-    const messagesEndRef = useRef<HTMLDivElement>(null)
+    const messagesEndRef = useRef<HTMLDivElement | null>(null)
 
     const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+        }
     }
 
     useEffect(() => {
@@ -55,63 +97,107 @@ export default function ChatPage() {
 
         const userMessage: Message = {
             content: inputValue,
-            position: 'R',
-            date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            position: "R",
+            date: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
         }
 
-        setMessages(prev => [...prev, userMessage])
+        setMessages((prev) => [...prev, userMessage])
         setInputValue("")
         setLoading(true)
 
         try {
             const response = await axios.post(`${baseURL}/chat-message`, { question: inputValue })
+
             const newMessage: Message = {
                 content: response.data.answer,
-                position: 'L',
-                date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                sql: response.data.sql && response.data.sql != "" ? response.data.sql : null
+                position: "L",
+                date: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+                sql: response.data.sql && response.data.sql !== "" ? response.data.sql : null,
             }
-            console.log(response.data)
-            setMessages(prev => [...prev, newMessage])
-        } catch (e) {
+
+            setMessages((prev) => [...prev, newMessage])
+        } catch (e: unknown) {
             console.error("Erro ao enviar mensagem:", e)
+
+            let errorMessage = "Ocorreu um erro inesperado. Tente novamente."
+
+            if (axios.isAxiosError(e)) {
+                errorMessage = e.response?.data?.error ?? errorMessage
+            }
+
+            toast({
+                title: "Erro ao consultar o assistente",
+                description: errorMessage,
+                variant: "destructive",
+            })
         } finally {
             setLoading(false)
         }
     }
 
     return (
-        <div className="flex h-screen bg-gray-50/50">
+        <div className="flex h-screen bg-gray-50/50 overflow-hidden">
             <Header />
             <LeftSideBar />
 
-            <div className="flex-1 flex flex-col mt-14">
-                <div className="bg-white border-b border-gray-100 p-5">
-                    <h2 className="text-lg font-medium text-gray-800">Assistente de Pesquisa Epidemiológica</h2>
-                    <p className="text-sm text-gray-500">Especializado em Tuberculose</p>
+            <div className="flex-1 flex flex-col mt-14 ml-64 overflow-hidden">
+                {/* Header da conversa */}
+                <div className="bg-white border-b border-gray-100 p-5 shrink-0 flex items-center justify-between">
+                    <div>
+                        <h2 className="text-lg font-medium text-gray-800">Assistente de Pesquisa Epidemiológica</h2>
+                        <p className="text-sm text-gray-500">Especializado em Tuberculose</p>
+                    </div>
+                    {/* Botão para abrir modal com lista de dados disponíveis */}
+                    <Button size="sm" className="bg-blue-600 hover:bg-blue-700"  onClick={() => setIsDataModalOpen(true)}>
+                        Ver informações disponíveis
+                    </Button>
+
                 </div>
 
-                <ScrollArea className="flex-1 p-5">
+                {/* Modal lista de dados disponíveis */}
+                <Dialog open={isDataModalOpen} onOpenChange={setIsDataModalOpen}>
+                    <DialogContent className="max-w-md">
+                        <DialogHeader>
+                            <DialogTitle>Informações disponíveis para análise</DialogTitle>
+                            <DialogDescription>
+                                Estas são as informações presentes no banco de dados que você pode perguntar:
+                            </DialogDescription>
+                        </DialogHeader>
+                        <ul className="list-disc list-inside max-h-80 overflow-auto text-sm text-gray-700">
+                            {availableDataList.map((item, idx) => (
+                                <li key={idx}>{item}</li>
+                            ))}
+                        </ul>
+                    </DialogContent>
+                </Dialog>
+
+                {/* Mensagens com scroll */}
+                <div className="flex-1 overflow-y-auto p-5">
                     <div className="space-y-4 max-w-4xl">
                         {messages.map((msg, idx) => (
-                            <div key={idx} className={`flex items-start space-x-3 ${msg.position === 'R' ? 'justify-end' : ''}`}>
-                                {msg.position === 'L' && (
+                            <div key={idx} className={`flex items-start space-x-3 ${msg.position === "R" ? "justify-end" : ""}`}>
+                                {msg.position === "L" && (
                                     <div className="w-7 h-7 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
                                         <Settings className="w-3.5 h-3.5 text-white" />
                                     </div>
                                 )}
-                                <div className={`${msg.position === 'R' ? 'bg-blue-600 text-white' : 'bg-blue-50 text-gray-800'} rounded-lg p-3 max-w-2xl`}>
+                                <div
+                                    className={`${msg.position === "R" ? "bg-blue-600 text-white" : "bg-blue-50 text-gray-800"
+                                        } rounded-lg p-3 max-w-2xl`}
+                                >
                                     <div className="prose prose-sm max-w-none">
                                         <ReactMarkdown>{msg.content}</ReactMarkdown>
                                     </div>
-                                    <span className={`text-xs mt-1 block ${msg.position === 'R' ? 'text-blue-200' : 'text-gray-400'}`}>{msg.date}</span>
+                                    <span className={`text-xs mt-1 block ${msg.position === "R" ? "text-blue-200" : "text-gray-400"}`}>
+                                        {msg.date}
+                                    </span>
                                 </div>
-                                {msg.position === 'R' && (
+                                {msg.position === "R" && (
                                     <div className="w-7 h-7 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
                                         <Users className="w-3.5 h-3.5 text-gray-500" />
                                     </div>
                                 )}
-                                {msg.sql && msg.position === 'L' && (
+                                {msg.sql != null && msg.position === "L" && (
                                     <Dialog>
                                         <DialogTrigger asChild>
                                             <Button
@@ -135,31 +221,26 @@ export default function ChatPage() {
                                         </DialogContent>
                                     </Dialog>
                                 )}
-
                             </div>
                         ))}
                         <div ref={messagesEndRef} />
                     </div>
-                </ScrollArea>
+                </div>
 
-                <div className="bg-white border-t border-gray-100 p-5">
+                {/* Input e ações */}
+                <div className="bg-white border-t border-gray-100 p-5 shrink-0">
                     <div className="flex items-center space-x-2 mb-3">
                         <Input
                             placeholder="Digite sua pergunta ou comando..."
                             className="flex-1 text-sm"
                             value={inputValue}
-                            onChange={e => setInputValue(e.target.value)}
-                            onKeyDown={e => {
-                                if (e.key === 'Enter') sendMessage()
+                            onChange={(e) => setInputValue(e.target.value)}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") sendMessage()
                             }}
                             disabled={loading}
                         />
-                        <Button
-                            size="sm"
-                            className="bg-blue-600 hover:bg-blue-700"
-                            onClick={sendMessage}
-                            disabled={loading}
-                        >
+                        <Button size="sm" className="bg-blue-600 hover:bg-blue-700" onClick={sendMessage} disabled={loading}>
                             {loading ? <Loader2 className="animate-spin w-4 h-4" /> : <Send className="w-4 h-4 mr-1" />}
                             {!loading && "Enviar"}
                         </Button>
@@ -181,8 +262,6 @@ export default function ChatPage() {
                     </div>
                 </div>
             </div>
-            {/* <RightSideBar /> */}
-
         </div>
     )
 }

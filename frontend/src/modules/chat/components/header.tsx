@@ -1,10 +1,6 @@
 
-import { Button } from "@/components/ui/button"
 import {
   Settings,
-  Search,
-  FileText,
-  HelpCircle,
 } from "lucide-react"
 
 const Header = () => {

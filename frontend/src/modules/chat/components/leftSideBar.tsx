@@ -1,21 +1,11 @@
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Separator } from "@/components/ui/separator"
-import {
-    TrendingUp,
-    MapPin,
-    BarChart3,
-    Calendar,
-    Globe,
-    Users,
-} from "lucide-react"
 
 const LeftSideBar = () => {
     return (
-        <div className="w-64 bg-white border-r border-gray-100 mt-14">
+        <div className="fixed top-14 bottom-0 w-64 bg-white border-r border-gray-100">
             <ScrollArea className="h-full">
                 <div className="p-4">
-                    {/* Recent Research */}
                     <div className="mb-5">
                         <h3 className="text-xs font-medium text-gray-700 mb-2 uppercase tracking-wider">Chats</h3>
                         <div className="space-y-1">
@@ -33,5 +23,6 @@ const LeftSideBar = () => {
         </div>
     )
 }
+
 
 export default LeftSideBar
