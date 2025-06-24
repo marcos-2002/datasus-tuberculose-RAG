@@ -140,7 +140,7 @@ Clique no botão "Ver informações disponíveis" para ver quais informações e
             <Header />
             <LeftSideBar />
 
-            <div className="flex-1 flex flex-col mt-14 ml-64 overflow-hidden">
+            <div className="flex-1 flex flex-col mt-14 md:ml-64 overflow-hidden">
                 {/* Header da conversa */}
                 <div className="bg-white border-b border-gray-100 p-5 shrink-0 flex items-center justify-between">
                     <div>
@@ -148,7 +148,7 @@ Clique no botão "Ver informações disponíveis" para ver quais informações e
                         <p className="text-sm text-gray-500">Especializado em Tuberculose</p>
                     </div>
                     {/* Botão para abrir modal com lista de dados disponíveis */}
-                    <Button size="sm" className="bg-blue-600 hover:bg-blue-700"  onClick={() => setIsDataModalOpen(true)}>
+                    <Button size="sm" className="bg-blue-600 hover:bg-blue-700" onClick={() => setIsDataModalOpen(true)}>
                         Ver informações disponíveis
                     </Button>
 
@@ -246,7 +246,7 @@ Clique no botão "Ver informações disponíveis" para ver quais informações e
                         </Button>
                     </div>
 
-                    <div className="flex items-center space-x-3">
+                    {/* <div className="flex items-center space-x-3">
                         <Button variant="ghost" size="sm" className="text-gray-500 font-normal text-xs">
                             <Paperclip className="w-3.5 h-3.5 mr-1.5" />
                             Anexar Dados
@@ -259,7 +259,7 @@ Clique no botão "Ver informações disponíveis" para ver quais informações e
                             <Share className="w-3.5 h-3.5 mr-1.5" />
                             Exportar Conversa
                         </Button>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

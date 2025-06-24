@@ -3,7 +3,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 
 const LeftSideBar = () => {
     return (
-        <div className="fixed top-14 bottom-0 w-64 bg-white border-r border-gray-100">
+        <div className="fixed top-14 bottom-0 w-64 bg-white border-r border-gray-100 hidden md:block">
             <ScrollArea className="h-full">
                 <div className="p-4">
                     <div className="mb-5">
