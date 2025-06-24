@@ -3,40 +3,76 @@ from rag.services.llm_service import LLM_service
 from database.models.general import MensagensChat
 
 class AnswerContructor:
-    _QUERY_PROMPT = """
-        Você é um agente de IA especializado em análise de dados. Sua tarefa é responder à pergunta do usuário com base nos dados obtidos de um banco de dados.
-
-        - Foi realizada uma consulta SQL para buscar dados relevantes à pergunta do usuário.
-        
-        ### Instruções:
-        1. Analise os dados fornecidos.
-        2. Responda à pergunta do usuário de forma clara e com base nos dados.
-        3. Se os dados não forem suficientes para responder à pergunta, informe ao usuário que os dados são insuficientes mas não envie os dados que recebeu.
-        4. Evite suposições ou informações que não estejam nos dados fornecidos.
-        5. Encontre a melhor forma de responder. Se você achar que, baseado nos dados, pode contruir uma resposta mais detalhada, de forma que uma análise seja útil ao usuário, faça isso. 
-    """
-    
-    def __init__(self, question: str, sql: str):
+    def __init__(self, question: str, sql: str, tipo_pergunta: str, last_messages: list[dict]):
         self.llm_service = LLM_service()
         self.db_service = DatabaseService()
         self.question = question
         self.sql = sql
+        self.tipo_pergunta = tipo_pergunta
+        self.last_messages = last_messages
+
+    def _get_contexto_formatado(self, limite=12):
+        mensagens_ordenadas = sorted(self.last_messages, key=lambda x: x["criado_em"])
+        ultimas = mensagens_ordenadas[-limite:]
+        return [
+            f"{m['sender'].capitalize()} ({m['criado_em']}): {m['content']}"
+            for m in ultimas
+        ]
+
+    def _get_instruction(self):
+        contexto_banco = (
+            "As colunas disponíveis no banco de dados são: tipo de entrada, raça, sexo, ppl, "
+            "população em situação de rua, forma, extra pulmonar, aids, alcoolismo, diabetes, "
+            "drogas ilícitas, tabagismo, outra doença, hiv, cultura do escarro, situação de encerramento e UF."
+        )
+
+        if self.tipo_pergunta == "mensagem_geral":
+            return (
+                "Você é um assistente amigável e prestativo. Responda como se fosse um chatbot comum. "
+                "Considere o contexto das últimas mensagens para manter a continuidade da conversa. "
+                + contexto_banco
+            )
+
+        elif self.tipo_pergunta == "analise_continuacao":
+            return (
+                "Com base nas últimas mensagens abaixo, responda à nova pergunta do usuário. "
+                "Não invente dados. Se os dados anteriores forem insuficientes, diga isso claramente. "
+                + contexto_banco
+            )
+
+        elif self.tipo_pergunta == "consulta_nova":
+            return (
+                "Você é um assistente de IA especializado em análise de dados, focado em ajudar pessoas a entender informações obtidas de um banco de dados sobre saúde pública.\n\n"
+                "## Contexto:\n"
+                "- Os dados abaixo foram obtidos automaticamente por uma consulta SQL. O usuário não forneceu os dados, e também não tem controle sobre a consulta feita.\n"
+                "- Sua tarefa é analisar os dados retornados e responder à pergunta do usuário de forma clara e acessível.\n\n"
+                "## Instruções:\n"
+                "1. Analise os dados fornecidos.\n"
+                "2. Se os dados forem suficientes, responda à pergunta de forma clara e, se possível, com uma análise útil.\n"
+                "3. Se os dados forem insuficientes ou vazios, **não mencione SQL, consultas, nem mostre os dados crus**.\n"
+                "4. Em caso de ausência de dados, diga algo como:\n"
+                "- \"Infelizmente, não há dados suficientes para responder à sua pergunta no momento.\"\n"
+                "- \"Os dados disponíveis estão incompletos ou não contêm as informações solicitadas.\"\n"
+                "5. Nunca culpe o usuário, nem peça que ele forneça mais dados.\n"
+                "6. Use uma linguagem clara e gentil, como se estivesse explicando para alguém não técnico.\n\n"
+                "Responda somente com o texto final para o usuário."
+            )
+
+        return "Responda à pergunta com base no contexto. Não invente dados."
 
     async def create_answer(self):
-        result_data = await self.db_service.execute_sql(self.sql)
+        context = self._get_contexto_formatado()
+        instructions = self._get_instruction()
 
-        #validar erro ou se não retornou dados
-        
-        final_answer = await self.llm_service.ask_question(
-            instructions=self._QUERY_PROMPT,
-            context=[f"Dados obtidos no banco de dados: f{result_data}"],
-            question=self.question,
-        )
-        
-        await MensagensChat.create(
-            chat_id=1, 
-            sender="bot", 
-            content=final_answer
+        if self.tipo_pergunta == "consulta_nova":
+            result_data = await self.db_service.execute_sql(self.sql)
+            context.append(f"Dados obtidos no banco de dados: {result_data}")
+
+        resposta = await self.llm_service.ask_question(
+            instructions=instructions,
+            context=context,
+            question=self.question
         )
 
-        return final_answer
+        await MensagensChat.create(chat_id=1, sender="bot", content=resposta)
+        return resposta
