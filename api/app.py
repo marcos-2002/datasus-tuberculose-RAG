@@ -2,11 +2,12 @@ import asyncio
 from quart import Quart, json, jsonify, request
 import database
 from etl.etl import ETL
-from rag.rag import RAG
+from rag.rag import RAGPipeline
 from config import Config
 from tortoise import Tortoise
 from quart_cors import cors
 from database.models.general import MensagensChat
+from rag.services.llm_service import LLMServiceError
 
 app = Quart(__name__)
 app = cors(Quart(__name__), allow_origin="*")
@@ -52,28 +53,49 @@ async def etl():
 
 @app.route('/chat-message', methods=['POST'])
 async def chat_message():
-    data = await request.get_json()
+    try:
+        data = await request.get_json()
 
-    if not data or "question" not in data:
-        return jsonify({"error": "Missing 'question' field"}), 400
+        if not data or "question" not in data:
+            return jsonify({"error": "Missing 'question' field"}), 400
 
-    question = data["question"]
-    await database.init()
+        question = data["question"]
+        await database.init()
 
-    await MensagensChat.create(
-        chat_id=1, 
-        sender="user", 
-        content=question
-    )
+        await MensagensChat.create(
+            chat_id=1, 
+            sender="user", 
+            content=question
+        )
 
-    recent_questions_raw = await MensagensChat.all().order_by("-criado_em").limit(20)
+        recent_messages_raw = await MensagensChat.all().order_by("-criado_em").limit(20)
+        recent_messages = [
+            {
+                "id": q.id, 
+                "chat_id": q.chat_id, 
+                "content": q.content, 
+                "criado_em": q.criado_em.isoformat(), 
+                "sender": q.sender
+            }
+            for q in recent_messages_raw
+        ]
 
-    recent_questions = recent_data = [
-        {"id": q.id, "chat_id": q.chat_id, "content": q.content, "criado_em": q.criado_em.isoformat()}
-        for q in recent_questions_raw
-    ]
-    rag = RAG(question, recent_questions)
-    
-    response = await rag.execute_rag()
+        rag = RAGPipeline(question, recent_messages)
+        response = await rag.execute_rag()
 
-    return jsonify({"answer": response["final_answer"], "sql": response["sql_query"]})
+        return jsonify({
+            "answer": response["final_answer"], 
+            "sql": response["sql_query"]
+        })
+
+    except LLMServiceError as e:
+        return jsonify({
+            "error": "A API da inteligência artificial está sobrecarregada ou fora do ar no momento. Tente novamente em alguns minutos.",
+            "debug": str(e)
+        }), 503 
+
+    except Exception as e:
+        return jsonify({
+            "error": "Erro interno inesperado.",
+            "debug": str(e)
+        }), 500
