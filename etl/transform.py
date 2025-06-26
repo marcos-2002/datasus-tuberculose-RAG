@@ -28,8 +28,10 @@ class Transformer():
                 df_renamed[col] = df_renamed[col].map({"M": 1, "F": 2}).fillna(9)
             elif col == "raca_id":
                 df_renamed[col] = df_renamed[col].replace("6", "9")
-
                 df_renamed[col] = df_renamed[col].replace("", "9")
+                df_renamed[col] = pd.to_numeric(df_renamed[col], errors="coerce").astype("Int64")
+            elif col == "situacao_encerra_id":
+                df_renamed[col] = df_renamed[col].replace("", "99")
                 df_renamed[col] = pd.to_numeric(df_renamed[col], errors="coerce").astype("Int64")
             else:
                 df_renamed[col] = df_renamed[col].replace("", "9")

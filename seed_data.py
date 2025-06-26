@@ -220,13 +220,14 @@ async def seed_data():
     await SituacaoEncerra.bulk_create([
         SituacaoEncerra(id=1, nome='Cura'),
         SituacaoEncerra(id=2, nome='Abandono'),
-        SituacaoEncerra(id=3, nome='Óbito por tuberculose'),
-        SituacaoEncerra(id=4, nome='Óbito por outras causas'),
-        SituacaoEncerra(id=5, nome='Transferência'),
-        SituacaoEncerra(id=7, nome='TB-DR'),
-        SituacaoEncerra(id=8, nome='Mudança de Esquema'),
-        SituacaoEncerra(id=9, nome='Ign/Branco'),
-        SituacaoEncerra(id=10, nome='Abandono Primário')
+        SituacaoEncerra(id=3, nome='Falência'),
+        SituacaoEncerra(id=4, nome='Óbito por tuberculose'),
+        SituacaoEncerra(id=5, nome='Óbito por outras causas'),
+        SituacaoEncerra(id=7, nome='Transferência'),
+        SituacaoEncerra(id=8, nome='Mudança de diagnóstico'),
+        SituacaoEncerra(id=9, nome='Drogas resistentes'),
+        SituacaoEncerra(id=10, nome='Não encerrado'),
+        SituacaoEncerra(id=99, nome='Ignorado') 
     ])
 
     # Sexo

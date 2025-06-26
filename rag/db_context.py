@@ -129,16 +129,16 @@ INSERT INTO teste_sensibilidade (id, nome) VALUES (6, 'Em andamento');
 INSERT INTO teste_sensibilidade (id, nome) VALUES (7, 'Não realizado');
 INSERT INTO teste_sensibilidade (id, nome) VALUES (9, 'Ignorado');
 
--- Inserções para a tabela situacao_encerra
 INSERT INTO situacao_encerra (id, nome) VALUES (1, 'Cura');
 INSERT INTO situacao_encerra (id, nome) VALUES (2, 'Abandono');
-INSERT INTO situacao_encerra (id, nome) VALUES (3, 'Óbito por tuberculose');
-INSERT INTO situacao_encerra (id, nome) VALUES (4, 'Óbito por outras causas');
-INSERT INTO situacao_encerra (id, nome) VALUES (5, 'Transferência');
-INSERT INTO situacao_encerra (id, nome) VALUES (7, 'TB-DR');
-INSERT INTO situacao_encerra (id, nome) VALUES (8, 'Mudança de Esquema');
-INSERT INTO situacao_encerra (id, nome) VALUES (9, 'Ign/Branco');
-INSERT INTO situacao_encerra (id, nome) VALUES (10, 'Abandono Primário');
+INSERT INTO situacao_encerra (id, nome) VALUES (3, 'Falência');
+INSERT INTO situacao_encerra (id, nome) VALUES (4, 'Óbito por tuberculose');
+INSERT INTO situacao_encerra (id, nome) VALUES (5, 'Óbito por outras causas');
+INSERT INTO situacao_encerra (id, nome) VALUES (7, 'Transferência');
+INSERT INTO situacao_encerra (id, nome) VALUES (8, 'Mudança de diagnóstico');
+INSERT INTO situacao_encerra (id, nome) VALUES (9, 'Drogas resistentes');
+INSERT INTO situacao_encerra (id, nome) VALUES (10, 'Não encerrado');
+INSERT INTO situacao_encerra (id, nome) VALUES (99, 'Ignorado');
 
 -- Inserções para a tabela sexo
 INSERT INTO sexo (id, nome) VALUES (1, 'Masculino');
