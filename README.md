@@ -55,6 +55,10 @@ Este projeto tem como objetivo auxiliar pesquisadores da área da saúde, especi
    ```bash
    http://localhost:8000/etl
    ```
+   é possível acompanhar os logs executando
+   ```bash
+   docker logs api
+   ```
 
 6. Rode o frontend (no windows use copy em vez de cp)
    ```bash
