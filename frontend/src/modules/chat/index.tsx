@@ -5,9 +5,6 @@ import axios from "axios"
 import ReactMarkdown from "react-markdown"
 import {
     Settings,
-    Paperclip,
-    BarChart,
-    Share,
     Send,
     Users,
     Loader2,
