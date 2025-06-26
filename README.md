@@ -1,6 +1,7 @@
 # Análise de Tuberculose - Backend
 
-Este projeto tem como objetivo auxiliar pesquisadores da área da saúde, especialmente pesquisadores que realizam estudos epidemiologicos sobre o perfil da tubercolose, a desenvolverem suas pesquisas de uma forma facilitada.
+Projeto de conclusão de curso do CEFET/RJ
+O objetivo do sistema é auxiliar pesquisadores da área da saúde, especialmente pesquisadores que realizam estudos epidemiologicos sobre o perfil da tubercolose, a desenvolverem suas pesquisas de uma forma facilitada, através de um chat interativo que possui os dados do datasus no contexto.
 
 ## Pré Requisitos
 
@@ -10,7 +11,7 @@ Este projeto tem como objetivo auxiliar pesquisadores da área da saúde, especi
 
 2. Chave de API do Gemini
 
-   Se você não tem uma chave de API, visite https://aistudio.google.com/app/apikey (não se preocupe, o Gemini possui limite gratuito)
+   Se você não tem uma chave de API, visite https://aistudio.google.com/app/apikey (o Gemini possui limite gratuito. você pode alterar o modelo usado no llm_service.py)
 
 3. yarn ou npm
 
