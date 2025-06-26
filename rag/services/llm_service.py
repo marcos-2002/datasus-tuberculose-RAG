@@ -5,13 +5,13 @@ config = Config()
 
 class LLM_service:
     def __init__(self):
-        self.client = genai.Client(api_key="AIzaSyAqzEgGxmdLpFPuwQ5SOJ2eslqdqvOdsak")
+        self.client = genai.Client(api_key=config.LLM_KEY)
 
     async def ask_question(self, instructions: str, context: list[str], question: str):
         try:
             messages = [
                 {"role": "user", "parts": [{"text": instructions}]},
-                {"role": "user", "parts": [{"text": f"Pergunta: {question}"}]} 
+                {"role": "user", "parts": [{"text": f"Pergunta: {question}"}]}
             ]
 
             for ctx in context:
@@ -27,6 +27,7 @@ class LLM_service:
 
     async def generate_embedding(self, question):
         return [1, 1, 1, 1]
+
 
 class LLMServiceError(Exception):
     pass
