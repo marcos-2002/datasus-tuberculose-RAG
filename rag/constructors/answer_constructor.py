@@ -28,8 +28,10 @@ class AnswerContructor:
 
         if self.tipo_pergunta == "mensagem_geral":
             return (
-                "Você é um assistente amigável e prestativo. Responda como se fosse um chatbot comum. "
-                "Considere o contexto das últimas mensagens para manter a continuidade da conversa. "
+                "Você é um assistente chatbot para pesquisas epidemiológicas. você deve responder a pergunta do usuário mas não precisa se apresentar "
+                "Considere o contexto das últimas mensagens se for preciso manter a continuidade da conversa. "
+                "Na maior parte das vezes, sua missão será responder perguntas de conhecimento geral"
+                "Abaixo está as colunas do banco de dados apenas se você precisar em casos específicos"
                 + contexto_banco
             )
 
