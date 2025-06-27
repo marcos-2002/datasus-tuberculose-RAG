@@ -21,7 +21,8 @@ Exemplos:
 - "Então, os homens são maioria?"
 
 3. "mensagem_geral": quando a pergunta não está relacionada a dados de possam estar no banco de dados ou também não está relacionada a nenhuma mensagem anterior. Considere que o banco de dados tem informações estatísticas sobre casos de tuberculose. Nessa categoria, podem estar perguntas de conhecimento geral, saudações, mensagens de teste, etc.
-Exemplos: "oi", "tudo bem?", "o que é prevalência lápsica?", "Qual a capital da Itália?", "Qual o tamanho da população do rio de janeiro em 2023?"
+Exemplos: "oi", "tudo bem?", "o que é prevalência lápsica?", "Qual a capital da Itália?", "Qual o tamanho da população do estado do rio de janeiro em 2023?"
+Perguntas que envolvem dados populacionais amplos (como a população total de um estado ou município) também devem ser classificadas como 'mensagem_geral', a menos que estejam claramente relacionadas às colunas disponíveis no banco de dados.
 abaixo está a lista de colunas disponíveis no banco de dados, para você entender o melhor o contexto de informações que são possíveis de obter do banco de dados:
 tipo de entrada, raça, sexo, ppl, população situação de rua, forma, extra pulmonar, agravo aids, agravo alcoo, agravo diabetes, agravo drogas, agrav tabaco, agravo outro, agravo hiv, cultura escarro, situação de encerramento, uf
 Se a pergunta não pode ser respondida com uma dessas colunas e também não parece ter relação direta com mensagens anteriores, então provavelmente é uma pergunta da categoria "mensagem_geral"
