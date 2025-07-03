@@ -59,16 +59,21 @@ async def chat_message():
         if not data or "question" not in data:
             return jsonify({"error": "Missing 'question' field"}), 400
 
+        if "chat_id" not in data:
+            return jsonify({"error": "Missing 'chat_id' field"}), 400
+
         question = data["question"]
+        chat_id = data["chat_id"]
         await database.init()
 
         await MensagensChat.create(
-            chat_id=1, 
+            chat_id=chat_id, 
             sender="user", 
             content=question
         )
 
-        recent_messages_raw = await MensagensChat.all().order_by("-criado_em").limit(20)
+        recent_messages_raw = await MensagensChat.filter(chat_id=chat_id).order_by("-criado_em").limit(20)
+
         recent_messages = [
             {
                 "id": q.id, 
@@ -97,5 +102,35 @@ async def chat_message():
     except Exception as e:
         return jsonify({
             "error": "Erro interno inesperado.",
+            "debug": str(e)
+        }), 500
+
+@app.route('/chat-messages', methods=['GET'])
+async def get_chat_messages():
+    try:
+        chat_id = request.args.get("chat_id")
+
+        if not chat_id:
+            return jsonify({"error": "Missing 'chat_id' parameter"}), 400
+
+        await database.init()
+
+        messages = await MensagensChat.filter(chat_id=chat_id).order_by("-criado_em").limit(20)
+
+        messages_formatted = [
+            {
+                "content": m.content,
+                "position": "L" if m.sender == "bot" else "R",
+                "date": m.criado_em.isoformat(), 
+                "sql": None  
+            }
+            for m in reversed(messages) 
+        ]
+
+        return jsonify(messages_formatted)
+
+    except Exception as e:
+        return jsonify({
+            "error": "Erro interno ao buscar mensagens.",
             "debug": str(e)
         }), 500

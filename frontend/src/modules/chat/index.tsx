@@ -76,6 +76,7 @@ Clique no botão "Ver informações disponíveis" para ver quais informações e
     const [loading, setLoading] = useState(false)
     const [selectedSQL, setSelectedSQL] = useState<string | null>(null)
     const [isDataModalOpen, setIsDataModalOpen] = useState(false)
+    const [chatId, setChatId] = useState<string | null>(null);
 
     const messagesEndRef = useRef<HTMLDivElement | null>(null)
 
@@ -84,6 +85,10 @@ Clique no botão "Ver informações disponíveis" para ver quais informações e
             messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
         }
     }
+
+    useEffect(() => {
+        getLastMessages()
+    }, [])
 
     useEffect(() => {
         scrollToBottom()
@@ -103,7 +108,7 @@ Clique no botão "Ver informações disponíveis" para ver quais informações e
         setLoading(true)
 
         try {
-            const response = await axios.post(`${baseURL}/chat-message`, { question: inputValue })
+            const response = await axios.post(`${baseURL}/chat-message`, { question: inputValue, chat_id: chatId })
 
             const newMessage: Message = {
                 content: response.data.answer,
@@ -131,6 +136,40 @@ Clique no botão "Ver informações disponíveis" para ver quais informações e
             setLoading(false)
         }
     }
+
+    const getLastMessages = async () => {
+        let existingId = localStorage.getItem('chat_id');
+
+        if (!existingId) {
+            existingId = Math.floor(Math.random() * 1_000_000_000).toString();
+            localStorage.setItem("chat_id", existingId);
+        }
+
+        setChatId(existingId);
+
+        try {
+            const response = await axios.get(`${baseURL}/chat-messages`, {
+                params: { chat_id: existingId },
+            });
+
+            const loadedMessages: Message[] = response.data.map((msg: any) => ({
+                content: msg.content,
+                position: msg.position === "R" ? "R" : "L",
+                date: new Date(msg.date).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+                sql: msg.sql ?? null
+            }));
+
+            setMessages((prev) => [...prev, ...loadedMessages]);
+        } catch (error) {
+            console.error("Erro ao buscar mensagens anteriores:", error);
+            toast({
+                title: "Erro ao carregar histórico",
+                description: "Não foi possível carregar as mensagens anteriores.",
+                variant: "destructive",
+            });
+        }
+    };
+
 
     return (
         <div className="flex h-screen bg-gray-50/50 overflow-hidden">

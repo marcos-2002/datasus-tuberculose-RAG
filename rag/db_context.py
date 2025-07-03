@@ -17,21 +17,6 @@ INSERT INTO pop_sit_rua (id, nome) VALUES (1, 'Sim');
 INSERT INTO pop_sit_rua (id, nome) VALUES (2, 'Não');
 INSERT INTO pop_sit_rua (id, nome) VALUES (9, 'Ignorado');
 
--- Inserções para a tabela prof_saude
-INSERT INTO prof_saude (id, nome) VALUES (1, 'Sim');
-INSERT INTO prof_saude (id, nome) VALUES (2, 'Não');
-INSERT INTO prof_saude (id, nome) VALUES (9, 'Ignorado');
-
--- Inserções para a tabela imigrante
-INSERT INTO imigrante (id, nome) VALUES (1, 'Sim');
-INSERT INTO imigrante (id, nome) VALUES (2, 'Não');
-INSERT INTO imigrante (id, nome) VALUES (9, 'Ignorado');
-
--- Inserções para a tabela benef_governo
-INSERT INTO benef_governo (id, nome) VALUES (1, 'Sim');
-INSERT INTO benef_governo (id, nome) VALUES (2, 'Não');
-INSERT INTO benef_governo (id, nome) VALUES (9, 'Ignorado');
-
 -- Inserções para a tabela forma
 INSERT INTO forma (id, nome) VALUES (1, 'Pulmonar');
 INSERT INTO forma (id, nome) VALUES (2, 'Extrapulmonar');
@@ -99,35 +84,12 @@ INSERT INTO hiv (id, nome) VALUES (3, 'Em andamento');
 INSERT INTO hiv (id, nome) VALUES (4, 'Não realizado');
 INSERT INTO hiv (id, nome) VALUES (9, 'Ignorado');
 
--- Inserções para a tabela antirretroviral
-INSERT INTO antirretroviral (id, nome) VALUES (1, 'Sim');
-INSERT INTO antirretroviral (id, nome) VALUES (2, 'Não');
-INSERT INTO antirretroviral (id, nome) VALUES (9, 'Ignorado');
-
 -- Inserções para a tabela cultura_escarro
 INSERT INTO cultura_escarro (id, nome) VALUES (1, 'Positiva');
 INSERT INTO cultura_escarro (id, nome) VALUES (2, 'Negativa');
 INSERT INTO cultura_escarro (id, nome) VALUES (3, 'Em andamento');
 INSERT INTO cultura_escarro (id, nome) VALUES (4, 'Não realizada');
 INSERT INTO cultura_escarro (id, nome) VALUES (9, 'Ignorado');
-
--- Inserções para a tabela teste_molec
-INSERT INTO teste_molec (id, nome) VALUES (1, 'Detectável sensível à Rifampicina');
-INSERT INTO teste_molec (id, nome) VALUES (2, 'Detectável resistente à Rifampicina');
-INSERT INTO teste_molec (id, nome) VALUES (3, 'Não detectável');
-INSERT INTO teste_molec (id, nome) VALUES (4, 'Inconclusivo');
-INSERT INTO teste_molec (id, nome) VALUES (5, 'Não realizado');
-INSERT INTO teste_molec (id, nome) VALUES (9, 'Ignorado');
-
--- Inserções para a tabela teste_sensibilidade
-INSERT INTO teste_sensibilidade (id, nome) VALUES (1, 'Resistente somente à Isoniazida');
-INSERT INTO teste_sensibilidade (id, nome) VALUES (2, 'Resistente somente à Rifampicina');
-INSERT INTO teste_sensibilidade (id, nome) VALUES (3, 'Resistente à Isoniazida e Rifampicina');
-INSERT INTO teste_sensibilidade (id, nome) VALUES (4, 'Resistente a outras drogas de 1ª linha');
-INSERT INTO teste_sensibilidade (id, nome) VALUES (5, 'Sensível');
-INSERT INTO teste_sensibilidade (id, nome) VALUES (6, 'Em andamento');
-INSERT INTO teste_sensibilidade (id, nome) VALUES (7, 'Não realizado');
-INSERT INTO teste_sensibilidade (id, nome) VALUES (9, 'Ignorado');
 
 INSERT INTO situacao_encerra (id, nome) VALUES (1, 'Cura');
 INSERT INTO situacao_encerra (id, nome) VALUES (2, 'Abandono');
