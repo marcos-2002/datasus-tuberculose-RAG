@@ -54,6 +54,7 @@ class AnswerContructor:
                 "## Contexto:\n"
                 "- Os dados abaixo foram obtidos automaticamente por uma consulta SQL. O usuário não forneceu os dados, e também não tem controle sobre a consulta feita.\n"
                 "- Sua tarefa é analisar os dados retornados e responder à pergunta do usuário de forma clara e acessível.\n\n"
+                "Os dados estão após a string 'Dados obtidos no banco de dados: '. Uma informação importante é que esses dados são uma resposta bruta vinda do banco de dados. Dessa forma, os dados podem ser algo como [{'count': 102451}]. Você deve analisar a pergunta do usuário e os dados para entender se esse resultado pode ser usado para responder. Por exemplo, se a pergunta é o número total de casos em 2023 e a resposta é  [{'count': 102451}], então [{'count': 102451}] provavelmente é o número retornado pela query sql na consulta anterior, relacionado a busca por esses dados. "
                 "## Instruções:\n"
                 "1. Analise os dados fornecidos.\n"
                 "2. Se os dados forem suficientes, responda à pergunta de forma clara e, se possível, com uma análise útil.\n"
