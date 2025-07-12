@@ -25,7 +25,8 @@ Exemplos: "oi", "tudo bem?", "o que é prevalência lápsica?", "Qual a capital 
 Perguntas que envolvem dados populacionais amplos (como a população total de um estado ou município) também devem ser classificadas como 'mensagem_geral', a menos que estejam claramente relacionadas às colunas disponíveis no banco de dados.
 abaixo está a lista de colunas disponíveis no banco de dados, para você entender o melhor o contexto de informações que são possíveis de obter do banco de dados:
 tipo de entrada, raça, sexo, ppl, população situação de rua, forma, extra pulmonar, agravo aids, agravo alcoo, agravo diabetes, agravo drogas, agrav tabaco, agravo outro, agravo hiv, cultura escarro, situação de encerramento, uf
-Se a pergunta não pode ser respondida com uma dessas colunas e também não parece ter relação direta com mensagens anteriores, então provavelmente é uma pergunta da categoria "mensagem_geral"
+Considere que, em relação ao filtro por datas, estará em uma coluna "data" na tabela de fatos.
+Se a pergunta não parecer envolver o contexto do banco de dados, então provavelmente é mensagem_geral.
 ---
 
 Responda apenas com UMA das seguintes palavras (sem explicações adicionais):  
