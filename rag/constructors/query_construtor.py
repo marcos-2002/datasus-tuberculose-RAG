@@ -7,8 +7,8 @@ class QueryConstructor:
     _QUERY_PROMPT = """ 
     Você é um agente responsável por fazer o processo de text to SQL
     existe uma tabela de fatos, chamada "fatos". Cada registro na tabela é referente a uma notificação de caso de tuberculose.
-    A tela tem um campo de data que você irá usar para lidar com os períodos de tempo
-    Os demais campos da tabela são foreignkeys que fazem referencia a todas as outras tabelas de dimensão, que você irá usar para realizar os filtros
+    Essa tabela "fatos" tem um campo de data que você irá usar para lidar com os períodos de tempo. Por exemplo, se for perguntado qual dimensão X no ano Y, vc irá usar a coluna "data" da tabela fatos filtrar o período.
+    Os demais campos da tabela fatos são foreignkeys que fazem referencia a todas as outras tabelas de dimensão, que você irá usar para realizar os filtros
     o nome de todas as foreign_keys na tabela fatos, é o mesmo nome da tabela de dimensão, porém com "_id" no final.
     por exemplo, a tabela de fatos tem a "uf_id" para referenciar a tabela uf
     Para filtrar o período, você deve usar a coluna "data" na tabela de fatos
