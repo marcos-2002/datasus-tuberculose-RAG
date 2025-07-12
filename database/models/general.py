@@ -58,3 +58,12 @@ class MensagensChat(Model):
     
     class Meta:
         table = "menssagens_chat"
+
+class Logs(Model):
+    id = fields.BigIntField(primary_key=True)
+    chat_id = fields.BigIntField()
+    message = fields.TextField()
+    criado_em = fields.DatetimeField(auto_now_add=True, null=True)
+    
+    class Meta:
+        table = "logs"

@@ -1,6 +1,6 @@
 from rag.services.db_service import DatabaseService
 from rag.services.llm_service import LLM_service
-from database.models.general import MensagensChat
+from database.models.general import Logs, MensagensChat
 
 class AnswerContructor:
     def __init__(self, question: str, sql: str, tipo_pergunta: str, last_messages: list[dict]):
@@ -75,7 +75,7 @@ class AnswerContructor:
         if self.tipo_pergunta == "consulta_nova":
             result_data = await self.db_service.execute_sql(self.sql)
             context.append(f"Dados obtidos no banco de dados: {result_data}")
-            print(f'result_data: {result_data}')
+            await Logs.create(chat_id=self.chat_id, message=f"Dados recebidos da query: {result_data}")
 
         resposta = await self.llm_service.ask_question(
             instructions=instructions,
@@ -83,9 +83,6 @@ class AnswerContructor:
             question=self.question
         )
 
-        if self.chat_id is not None:
-            await MensagensChat.create(chat_id=self.chat_id, sender="bot", content=resposta)
-        else:
-            print("Aviso: chat_id não encontrado em last_messages. A resposta não será salva.")
+        await MensagensChat.create(chat_id=self.chat_id, sender="bot", content=resposta)
 
         return resposta

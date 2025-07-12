@@ -1,3 +1,4 @@
+from database.models.general import Logs
 from rag.constructors.context_construtor import ContextConstructor
 from rag.constructors.query_construtor import QueryConstructor
 from rag.constructors.answer_constructor import AnswerContructor
@@ -11,12 +12,16 @@ class RAGPipeline:
         self.llm_service = LLM_service()
 
     async def execute_rag(self):
+        await Logs.create(chat_id=self.last_messages[0].get("chat_id"), message=f"Pergunta recebida {self.question}")
+
         # Etapa 1: Classificação da pergunta
         classifier = QuestionClassificationConstructor(
             question=self.question,
             last_messages=[f"{m['content']} ({m['criado_em']})" for m in self.last_messages]
         )
         tipo_pergunta = await classifier.classify()
+
+        await Logs.create(chat_id=self.last_messages[0].get("chat_id"), message=f"Pergunta classificada {tipo_pergunta}")
 
         # Etapa 2: Roteamento de acordo com o tipo da pergunta
         if tipo_pergunta in ["mensagem_geral", "analise_continuacao"]:
@@ -28,6 +33,8 @@ class RAGPipeline:
                 last_messages=self.last_messages
             )
             final_answer = await answer_constructor.create_answer()
+
+            await Logs.create(chat_id=self.last_messages[0].get("chat_id"), message=f"Resposta {final_answer}")
             return {"final_answer": final_answer, "sql_query": ""}
 
         elif tipo_pergunta == "consulta_nova":
@@ -38,7 +45,7 @@ class RAGPipeline:
             query_constructor = QueryConstructor(self.question, context)
             sql_query = await query_constructor.create_query()
 
-            print(f'sql: {sql_query}')
+            await Logs.create(chat_id=self.last_messages[0].get("chat_id"), message=f"Sql gerado {sql_query}")
 
             if not sql_query:
                 return {"final_answer": "Não foi possível gerar uma query SQL válida.", "sql_query": ""}
@@ -50,7 +57,8 @@ class RAGPipeline:
                 last_messages=self.last_messages
             )
             final_answer = await answer_constructor.create_answer()
-
+            
+            await Logs.create(chat_id=self.last_messages[0].get("chat_id"), message=f"Resposta {final_answer}")
             return {
                 "final_answer": final_answer,
                 "sql_query": sql_query
