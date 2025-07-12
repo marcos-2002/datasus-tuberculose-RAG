@@ -38,6 +38,8 @@ class RAGPipeline:
             query_constructor = QueryConstructor(self.question, context)
             sql_query = await query_constructor.create_query()
 
+            print(f'sql: {sql_query}')
+
             if not sql_query:
                 return {"final_answer": "Não foi possível gerar uma query SQL válida.", "sql_query": ""}
 

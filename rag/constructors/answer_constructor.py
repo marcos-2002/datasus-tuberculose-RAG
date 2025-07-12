@@ -75,6 +75,7 @@ class AnswerContructor:
         if self.tipo_pergunta == "consulta_nova":
             result_data = await self.db_service.execute_sql(self.sql)
             context.append(f"Dados obtidos no banco de dados: {result_data}")
+            print(f'result_data: {result_data}')
 
         resposta = await self.llm_service.ask_question(
             instructions=instructions,
