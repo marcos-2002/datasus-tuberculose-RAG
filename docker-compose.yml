@@ -31,4 +31,4 @@ services:
       DB_DATABASE: ${DB_DATABASE}
     ports:
       - '8000:8000'
-    command: ["/app/entrypoint.sh"]
+    command: ["/app/docker-entrypoint.sh"]
