@@ -8,7 +8,9 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": ["./src/*"],
+      "@root/*": ["./*"]
+    },
+    "allowJs": true
   }
 }
