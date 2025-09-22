@@ -109,6 +109,7 @@ Clique no botão "Ver informações disponíveis" para ver quais informações e
 
         try {
             const response = await axios.post(`${baseURL}/chat-message`, { question: inputValue, chat_id: chatId })
+            console.log(response)
 
             const newMessage: Message = {
                 content: response.data.answer,

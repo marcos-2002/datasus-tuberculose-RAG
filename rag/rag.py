@@ -4,6 +4,7 @@ from rag.constructors.query_construtor import QueryConstructor
 from rag.constructors.answer_constructor import AnswerContructor
 from rag.constructors.question_classification_constructor import QuestionClassificationConstructor
 from rag.services.llm_service import LLM_service
+from rag.constructors.visualization_recommender_constructor import VisualizationRecommenderConstructor
 
 class RAGPipeline:
     def __init__(self, question, last_messages):
@@ -57,7 +58,14 @@ class RAGPipeline:
                 last_messages=self.last_messages
             )
             final_answer = await answer_constructor.create_answer()
-            
+
+            # print(f"\n{sql_query}\n", flush=True)
+            print('\noi\n')
+            suggested_json_constructor = VisualizationRecommenderConstructor(sql_query=sql_query, final_answer=final_answer)
+            suggested_json = await suggested_json_constructor.create_json()
+
+            print(f'\n{suggested_json}\n', flush=True)
+            print('\noi22222\n')
             await Logs.create(chat_id=self.last_messages[0].get("chat_id"), message=f"Resposta {final_answer}")
             return {
                 "final_answer": final_answer,
