@@ -59,6 +59,8 @@ const availableDataList = [
     "Estado (UF)",
 ]
 
+
+
 export default function ChatPage() {
     const baseURL = import.meta.env.VITE_API_URL
 
@@ -75,8 +77,9 @@ Clique no botão "Ver informações disponíveis" para ver quais informações e
     ])
     const [inputValue, setInputValue] = useState("")
     const [loading, setLoading] = useState(false)
-    const [chatId, setChatId] = useState<string | null>(null)
-    const [showDataModal, setShowDataModal] = useState(false)
+    const [selectedSQL, setSelectedSQL] = useState<string | null>(null)
+    const [isDataModalOpen, setIsDataModalOpen] = useState(false)
+    const [chatId, setChatId] = useState<string | null>(null);
 
     const messagesEndRef = useRef<HTMLDivElement | null>(null)
 
@@ -94,6 +97,8 @@ Clique no botão "Ver informações disponíveis" para ver quais informações e
         scrollToBottom()
     }, [messages])
 
+    const [jsonPlot, setJsonPlot] = useState('')
+
     const sendMessage = async () => {
         if (!inputValue.trim()) return
 
@@ -109,8 +114,7 @@ Clique no botão "Ver informações disponíveis" para ver quais informações e
 
         try {
             const response = await axios.post(`${baseURL}/chat-message`, { question: inputValue, chat_id: chatId })
-            console.log(response)
-
+            
             const newMessage: Message = {
                 content: response.data.answer,
                 position: "L",
@@ -119,6 +123,7 @@ Clique no botão "Ver informações disponíveis" para ver quais informações e
             }
 
             setMessages((prev) => [...prev, newMessage])
+            setJsonPlot(() => response.data?.json_plot)
         } catch (e: unknown) {
             console.error("Erro ao enviar mensagem:", e)
 
@@ -171,72 +176,8 @@ Clique no botão "Ver informações disponíveis" para ver quais informações e
         }
     };
 
-    // Componente para cada mensagem
-    const MessageItem = ({ msg }: { msg: Message }) => {
-        const [showPlot, setShowPlot] = useState(false)
-        const [selectedSQL, setSelectedSQL] = useState<string | null>(null)
-
-        return (
-            <div className={`flex items-start space-x-3 ${msg.position === "R" ? "justify-end" : ""}`}>
-                {msg.position === "L" && (
-                    <div className="w-7 h-7 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
-                        <Settings className="w-3.5 h-3.5 text-white" />
-                    </div>
-                )}
-                <div className={`${msg.position === "R" ? "bg-blue-600 text-white" : "bg-blue-50 text-gray-800"} rounded-lg p-3 max-w-2xl`}>
-                    <div className="prose prose-sm max-w-none">
-                        <ReactMarkdown>{msg.content}</ReactMarkdown>
-
-                        {msg.position === "L" && (
-                            <>
-                                <button
-                                    className="border p-2 my-2 hover:bg-white hover:text-black"
-                                    onClick={() => setShowPlot(true)}
-                                >
-                                    Ver gráfico
-                                </button>
-                                <Modal showModal={showPlot} setModal={setShowPlot} msgContent={msg.content} />
-                            </>
-                        )}
-                    </div>
-                    <span className={`text-xs mt-1 block ${msg.position === "R" ? "text-blue-200" : "text-gray-400"}`}>
-                        {msg.date}
-                    </span>
-                </div>
-
-                {msg.position === "R" && (
-                    <div className="w-7 h-7 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
-                        <Users className="w-3.5 h-3.5 text-gray-500" />
-                    </div>
-                )}
-
-                {msg.sql != null && msg.position === "L" && (
-                    <Dialog>
-                        <DialogTrigger asChild>
-                            <Button
-                                variant="ghost"
-                                className="text-xs mt-2 text-blue-600 hover:underline p-0 h-auto"
-                                onClick={() => setSelectedSQL(msg.sql!)}
-                            >
-                                Detalhes
-                            </Button>
-                        </DialogTrigger>
-                        <DialogContent className="max-w-lg">
-                            <DialogHeader>
-                                <DialogTitle>Consulta SQL utilizada</DialogTitle>
-                                <DialogDescription>
-                                    Para responder essa pergunta, eu executei o seguinte SQL no banco de dados para obter os dados:
-                                </DialogDescription>
-                            </DialogHeader>
-                            <pre className="text-xs bg-gray-100 p-3 rounded whitespace-pre-wrap break-words max-h-[300px] overflow-auto">
-                                {selectedSQL}
-                            </pre>
-                        </DialogContent>
-                    </Dialog>
-                )}
-            </div>
-        )
-    }
+    const [isOpen, setIsOpen] = useState(false)
+    
 
     return (
         <div className="flex h-screen bg-gray-50/50 overflow-hidden">
@@ -251,13 +192,14 @@ Clique no botão "Ver informações disponíveis" para ver quais informações e
                         <p className="text-sm text-gray-500">Especializado em Tuberculose</p>
                     </div>
                     {/* Botão para abrir modal com lista de dados disponíveis */}
-                    <Button size="sm" className="bg-blue-600 hover:bg-blue-700" onClick={() => setShowDataModal(true)}>
+                    <Button size="sm" className="bg-blue-600 hover:bg-blue-700" onClick={() => setIsDataModalOpen(true)}>
                         Ver informações disponíveis
                     </Button>
+
                 </div>
 
                 {/* Modal lista de dados disponíveis */}
-                <Dialog open={showDataModal} onOpenChange={setShowDataModal}>
+                <Dialog open={isDataModalOpen} onOpenChange={setIsDataModalOpen}>
                     <DialogContent className="max-w-md">
                         <DialogHeader>
                             <DialogTitle>Informações disponíveis para análise</DialogTitle>
@@ -272,12 +214,65 @@ Clique no botão "Ver informações disponíveis" para ver quais informações e
                         </ul>
                     </DialogContent>
                 </Dialog>
+                
+                <Modal isOpen={isOpen} setIsOpen={setIsOpen} json_plot={jsonPlot ? JSON.parse(jsonPlot) : undefined} />
 
                 {/* Mensagens com scroll */}
                 <div className="flex-1 overflow-y-auto p-5">
                     <div className="space-y-4 max-w-4xl">
                         {messages.map((msg, idx) => (
-                            <MessageItem key={idx} msg={msg} />
+                            <div key={idx} className={`flex items-start space-x-3 ${msg.position === "R" ? "justify-end" : ""}`}>
+                                {msg.position === "L" && (
+                                    <div className="w-7 h-7 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                        <Settings className="w-3.5 h-3.5 text-white" />
+                                    </div>
+                                )}
+                                <div
+                                    className={`${msg.position === "R" ? "bg-blue-600 text-white" : "bg-blue-50 text-gray-800"
+                                        } rounded-lg p-3 max-w-2xl`}
+                                >
+                                    <div className="prose prose-sm max-w-none">
+                                        <ReactMarkdown>{msg.content}</ReactMarkdown>
+                                        {msg.position === "L" && (
+                                            <div>
+                                                <button className="my-2 py-2 px-4 border border-gray-400 rounded hover:border-gray-800" onClick={() => setIsOpen(true)}>Ver gráfico</button>
+                                            </div>
+                                        )}
+                                    </div>
+                                    <span className={`text-xs mt-1 block ${msg.position === "R" ? "text-blue-200" : "text-gray-400"}`}>
+                                        {msg.date}
+                                    </span>
+                                </div>
+                                {msg.position === "R" && (
+                                    <div className="w-7 h-7 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
+                                        <Users className="w-3.5 h-3.5 text-gray-500" />
+                                    </div>
+                                )}
+                                {msg.sql != null && msg.position === "L" && (
+                                    <Dialog>
+                                        <DialogTrigger asChild>
+                                            <Button
+                                                variant="ghost"
+                                                className="text-xs mt-2 text-blue-600 hover:underline p-0 h-auto"
+                                                onClick={() => setSelectedSQL(msg.sql!)}
+                                            >
+                                                Detalhes
+                                            </Button>
+                                        </DialogTrigger>
+                                        <DialogContent className="max-w-lg">
+                                            <DialogHeader>
+                                                <DialogTitle>Consulta SQL utilizada</DialogTitle>
+                                                <DialogDescription>
+                                                    Para responder essa pergunta, eu executei o seguinte SQL no banco de dados para obter os dados:
+                                                </DialogDescription>
+                                            </DialogHeader>
+                                            <pre className="text-xs bg-gray-100 p-3 rounded whitespace-pre-wrap break-words max-h-[300px] overflow-auto">
+                                                {selectedSQL}
+                                            </pre>
+                                        </DialogContent>
+                                    </Dialog>
+                                )}
+                            </div>
                         ))}
                         <div ref={messagesEndRef} />
                     </div>
@@ -301,6 +296,21 @@ Clique no botão "Ver informações disponíveis" para ver quais informações e
                             {!loading && "Enviar"}
                         </Button>
                     </div>
+
+                    {/* <div className="flex items-center space-x-3">
+                        <Button variant="ghost" size="sm" className="text-gray-500 font-normal text-xs">
+                            <Paperclip className="w-3.5 h-3.5 mr-1.5" />
+                            Anexar Dados
+                        </Button>
+                        <Button variant="ghost" size="sm" className="text-gray-500 font-normal text-xs">
+                            <BarChart className="w-3.5 h-3.5 mr-1.5" />
+                            Inserir Gráfico
+                        </Button>
+                        <Button variant="ghost" size="sm" className="text-gray-500 font-normal text-xs">
+                            <Share className="w-3.5 h-3.5 mr-1.5" />
+                            Exportar Conversa
+                        </Button>
+                    </div> */}
                 </div>
             </div>
         </div>

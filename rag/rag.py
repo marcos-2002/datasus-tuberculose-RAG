@@ -58,18 +58,15 @@ class RAGPipeline:
                 last_messages=self.last_messages
             )
             final_answer = await answer_constructor.create_answer()
-
-            # print(f"\n{sql_query}\n", flush=True)
-            print('\noi\n')
+            
             suggested_json_constructor = VisualizationRecommenderConstructor(sql_query=sql_query, final_answer=final_answer)
             suggested_json = await suggested_json_constructor.create_json()
-
-            print(f'\n{suggested_json}\n', flush=True)
-            print('\noi22222\n')
+            
             await Logs.create(chat_id=self.last_messages[0].get("chat_id"), message=f"Resposta {final_answer}")
             return {
                 "final_answer": final_answer,
-                "sql_query": sql_query
+                "sql_query": sql_query,
+                "suggested_json": suggested_json
             }
 
         else:
