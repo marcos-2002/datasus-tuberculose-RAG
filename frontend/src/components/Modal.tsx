@@ -31,6 +31,7 @@ export default function Modal({ isOpen, setIsOpen, json_plot }: ModalProps) {
   }
 
   const [brasil, setBrasil] = useState({})
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   useEffect(() => {
     fetch("https://raw.githubusercontent.com/giuliano-macedo/geodata-br-states/refs/heads/main/geojson/br_states.json", {
       method: "GET"
@@ -49,7 +50,8 @@ export default function Modal({ isOpen, setIsOpen, json_plot }: ModalProps) {
         return (
           <>
             {/* Barras horizontais */}
-            <div className="w-[600px]">
+            <div className="flex flex-row gap-6 justify-center">
+            <div className="">
               <PlotFigure
                 options={{
                   width: 600,
@@ -64,7 +66,7 @@ export default function Modal({ isOpen, setIsOpen, json_plot }: ModalProps) {
             </div>
 
             {/* Barras verticais */}
-            <div className="w-[600px]">
+            <div className="">
               <PlotFigure
                 options={{
                   width: 600,
@@ -76,6 +78,7 @@ export default function Modal({ isOpen, setIsOpen, json_plot }: ModalProps) {
                   marginBottom: 100
                 }}
               />
+            </div>
             </div>
           </>
         );
@@ -161,15 +164,29 @@ export default function Modal({ isOpen, setIsOpen, json_plot }: ModalProps) {
         onClick={() => setIsOpen(false)} // fecha ao clicar no fundo
       />
 
-      <div className="fixed top-1/2 left-1/2 w-[1271px] max-h-screen -translate-x-1/2 -translate-y-1/2 bg-white z-50 rounded-lg shadow-lg p-4 flex flex-row flex-wrap  gap-6 overflow-y-auto">
-      {json_plot?.visualizacoes
-        .filter((vis) => vis.score >= 0.8) // 👈 aqui você controla o limite do score
-        .map((vis, index) => (
-          <div key={index} className="w-[600px]">
-            {renderPlot(vis)}
-          </div>
-        ))}
-    </div>
+       <div className="fixed top-1/2 left-1/2 w-fit max-h-screen -translate-x-1/2 -translate-y-1/2 bg-white z-50 rounded-lg shadow-lg px-4 py-8 flex flex-row gap-6 overflow-y-auto justify-center items-center">
+        {json_plot?.visualizacoes
+          .filter((vis) => vis.score >= 0.8)
+          .map((vis, index) => {
+            // Se nenhum gráfico foi selecionado, mostra todos
+            // Se um foi selecionado, mostra só ele
+            if (selectedIndex !== null && selectedIndex !== index) return null;
+
+            return (
+              <div
+                key={index}
+                className={`cursor-pointer transition-all ${
+                  vis.tipo === "grafico_barras" ? "w-fit" : "w-[600px]"
+                }`}
+                onClick={() =>
+                  setSelectedIndex(selectedIndex === index ? null : index)
+                }
+              >
+                {renderPlot(vis)}
+              </div>
+            );
+          })}
+      </div>
     </>
   )
 }
