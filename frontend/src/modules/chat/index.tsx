@@ -24,6 +24,8 @@ import LeftSideBar from "./components/leftSideBar"
 import Header from "./components/header"
 import { toast } from "@/hooks/use-toast"
 import Modal from "@/components/Modal"
+import { useNavigate } from "react-router-dom"
+import { plot } from "@observablehq/plot"
 
 type Message = {
     content: string
@@ -63,6 +65,8 @@ const availableDataList = [
 
 export default function ChatPage() {
     const baseURL = import.meta.env.VITE_API_URL
+
+    const navigate = useNavigate()
 
     const [messages, setMessages] = useState<Message[]>([
         {
@@ -177,8 +181,7 @@ Clique no botão "Ver informações disponíveis" para ver quais informações e
     };
 
     const [isOpen, setIsOpen] = useState(false)
-    
-
+    // console.log(JSON.parse(jsonPlot))
     return (
         <div className="flex h-screen bg-gray-50/50 overflow-hidden">
             <Header />
@@ -191,11 +194,15 @@ Clique no botão "Ver informações disponíveis" para ver quais informações e
                         <h2 className="text-lg font-medium text-gray-800">Assistente de Pesquisa Epidemiológica</h2>
                         <p className="text-sm text-gray-500">Especializado em Tuberculose</p>
                     </div>
-                    {/* Botão para abrir modal com lista de dados disponíveis */}
-                    <Button size="sm" className="bg-blue-600 hover:bg-blue-700" onClick={() => setIsDataModalOpen(true)}>
-                        Ver informações disponíveis
-                    </Button>
-
+                    <div className="flex flex-row gap-4">
+                        <Button size="sm" className="bg-gray-300 hover:bg-gray-400 text-blac" onClick={() => navigate('/dashboard')}>
+                            Ver dashboard
+                        </Button>
+                        {/* Botão para abrir modal com lista de dados disponíveis */}
+                        <Button size="sm" className="bg-blue-600 hover:bg-blue-700" onClick={() => setIsDataModalOpen(true)}>
+                            Ver informações disponíveis
+                        </Button>
+                    </div>
                 </div>
 
                 {/* Modal lista de dados disponíveis */}

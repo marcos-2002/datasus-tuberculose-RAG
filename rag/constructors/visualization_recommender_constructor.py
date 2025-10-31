@@ -20,32 +20,71 @@ class VisualizationRecommenderConstructor:
 
     4.2- score: peso de relevância.
 
-    4.3- dados: array de objetos com:
+    4.3- titulo: string contendo o título do gráfico.
 
-    4.4- dimensoes: objeto com chaves representando dimensões.
+    4.4- dados: array de objetos com:
 
-    4.4.1- A primeira dimensão deve ser usada em um dos eixos do gráfico (x ou y) e ser a dimensão principal.
+    4.5- dimensoes: objeto com chaves representando dimensões.
 
-    4.4.2- A segunda dimensão deve indicar proporção/empilhamento nos gráficos de proporção ou cor/agrupamento nos outros gráficos.
+    4.5.1- A primeira dimensão deve ser usada em um dos eixos do gráfico (x ou y) e ser a dimensão principal.
 
-    4.4.3- Se houver mais dimensões, inclua-as na ordem de importância para alterar cor ou agrupamento.
+    4.5.2- A segunda dimensão deve indicar proporção/empilhamento nos gráficos de proporção ou cor/agrupamento nos outros gráficos.
 
-    4.4.4- valor: valor numérico associado à combinação de dimensões.
+    4.5.3- Se houver mais dimensões, inclua-as na ordem de importância para alterar cor ou agrupamento.
+
+    4.5.4- valor: valor numérico associado à combinação de dimensões.
 
     5- Para gráficos de mapas_coropleticos, use os nomes de estados padronizados conforme o exemplo fornecido.
 
     6- Todos os dados da resposta devem ser adaptados para cada tipo de gráfico e mantidos consistentes entre as visualizações.
 
-    7- Responda apenas com um JSON **puro**, **sem usar blocos de código Markdown** () ou quaisquer outros caracteres adicionais.
+    7- Os gráficos de barras verticais e orizontais devem ter os mesmos dados na lista de dados do json
     
-    8- Não inclua explicações, texto ou palavras fora do JSON.
+    8- Responda apenas com um JSON **puro**, **sem usar blocos de código Markdown** () ou quaisquer outros caracteres adicionais.
+    
+    9- Não inclua explicações, texto ou palavras fora do JSON.
     
     Exemplo de resposta (JSON puro):
     {
         "visualizacoes": [
             {
-            "tipo": "grafico_barras",
+            "tipo": "grafico_barras_vertical",
             "score": 0.9,
+            "titulo": "",
+            "dados": [
+                { "dimensoes": { "estado": "São Paulo" }, "valor": 18201 },
+                { "dimensoes": { "estado": "Rio de Janeiro" }, "valor": 12361 },
+                { "dimensoes": { "estado": "Pernambuco" }, "valor": 5251 },
+                { "dimensoes": { "estado": "Pará" }, "valor": 4804 },
+                { "dimensoes": { "estado": "Rio Grande do Sul" }, "valor": 4729 },
+                { "dimensoes": { "estado": "Bahia" }, "valor": 4324 },
+                { "dimensoes": { "estado": "Minas Gerais" }, "valor": 3799 },
+                { "dimensoes": { "estado": "Amazonas" }, "valor": 3659 },
+                { "dimensoes": { "estado": "Ceará" }, "valor": 3491 },
+                { "dimensoes": { "estado": "Maranhão" }, "valor": 2492 },
+                { "dimensoes": { "estado": "Paraná" }, "valor": 2201 },
+                { "dimensoes": { "estado": "Santa Catarina" }, "valor": 1937 },
+                { "dimensoes": { "estado": "Rio Grande do Norte" }, "valor": 1366 },
+                { "dimensoes": { "estado": "Espírito Santo" }, "valor": 1350 },
+                { "dimensoes": { "estado": "Mato Grosso do Sul" }, "valor": 1387 },
+                { "dimensoes": { "estado": "Mato Grosso" }, "valor": 1151 },
+                { "dimensoes": { "estado": "Paraíba" }, "valor": 1248 },
+                { "dimensoes": { "estado": "Goiás" }, "valor": 1000 },
+                { "dimensoes": { "estado": "Alagoas" }, "valor": 939 },
+                { "dimensoes": { "estado": "Sergipe" }, "valor": 934 },
+                { "dimensoes": { "estado": "Piauí" }, "valor": 745 },
+                { "dimensoes": { "estado": "Rondônia" }, "valor": 570 },
+                { "dimensoes": { "estado": "Acre" }, "valor": 528 },
+                { "dimensoes": { "estado": "Roraima" }, "valor": 435 },
+                { "dimensoes": { "estado": "Amapá" }, "valor": 406 },
+                { "dimensoes": { "estado": "Distrito Federal" }, "valor": 337 },
+                { "dimensoes": { "estado": "Tocantins" }, "valor": 217 }
+            ]
+            },
+            {
+            "tipo": "grafico_barras_horizontal",
+            "score": 0.9,
+            "titulo": "",
             "dados": [
                 { "dimensoes": { "estado": "São Paulo" }, "valor": 18201 },
                 { "dimensoes": { "estado": "Rio de Janeiro" }, "valor": 12361 },
@@ -79,6 +118,7 @@ class VisualizationRecommenderConstructor:
             {
             "tipo": "mapas_coropleticos",
             "score": 0.9,
+            "titulo": "",
             "dados": [
                 { "dimensoes": { "estado": "São Paulo" }, "valor": 18201 },
                 { "dimensoes": { "estado": "Rio de Janeiro" }, "valor": 12361 },
@@ -112,6 +152,7 @@ class VisualizationRecommenderConstructor:
             {
             "tipo": "graficos_linhas",
             "score": 0.1,
+            "titulo": "",
             "dados": [
                 { "dimensoes": { "numMes": 1, "mes": "Janeiro" }, "valor": 5333 },
                 { "dimensoes": { "numMes": 2, "mes": "Fevereiro" }, "valor": 6205 },
@@ -130,6 +171,7 @@ class VisualizationRecommenderConstructor:
             {
             "tipo": "graficos_com_proporcao",
             "score": 0.7,
+            "titulo": "",
             "dados": [
                 { "dimensoes": { "ano": 2022, "raca": "Parda" }, "valor": 52682 },
                 { "dimensoes": { "ano": 2022, "raca": "Branca" }, "valor": 26729 },
