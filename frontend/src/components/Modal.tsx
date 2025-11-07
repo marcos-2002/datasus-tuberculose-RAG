@@ -12,7 +12,8 @@ interface ModalProps {
 interface Visualizacao {
   tipo: string;
   score: number;
-  titulo: string,
+  titulo: string;
+  pergunta: string;
   dados: Dado[];
 }
 

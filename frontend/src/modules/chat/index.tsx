@@ -102,7 +102,7 @@ Clique no botão "Ver informações disponíveis" para ver quais informações e
     }, [messages])
 
     const [jsonPlot, setJsonPlot] = useState('')
-
+    console.log(jsonPlot)
     const sendMessage = async () => {
         if (!inputValue.trim()) return
 
@@ -127,7 +127,14 @@ Clique no botão "Ver informações disponíveis" para ver quais informações e
             }
 
             setMessages((prev) => [...prev, newMessage])
-            setJsonPlot(() => response.data?.json_plot)
+            setJsonPlot(
+                JSON.stringify({
+                    visualizacoes: JSON.parse(response.data?.json_plot).visualizacoes?.map((visualizacao: any) => {
+                    return { ...visualizacao, pergunta: inputValue };
+                    })
+                })
+                );
+
         } catch (e: unknown) {
             console.error("Erro ao enviar mensagem:", e)
 
@@ -181,7 +188,7 @@ Clique no botão "Ver informações disponíveis" para ver quais informações e
     };
 
     const [isOpen, setIsOpen] = useState(false)
-    // console.log(JSON.parse(jsonPlot))
+    console.log(jsonPlot)
     return (
         <div className="flex h-screen bg-gray-50/50 overflow-hidden">
             <Header />

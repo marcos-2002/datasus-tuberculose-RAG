@@ -5,7 +5,6 @@ import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 
 import Header from "./components/header"
-import Modal from "@/components/Modal"
 import { useNavigate } from "react-router-dom"
 import PlotGeneric from "@/components/ui/plot"
 import { IoIosInformationCircleOutline } from "react-icons/io";
@@ -18,28 +17,29 @@ import {
 } from "@/components/ui/dialog"
 
 interface Visualizacao {
-  tipo: string;
-  score: number;
-  dados: Dado[];
-  titulo: string;
+    tipo: string;
+    score: number;
+    dados: Dado[];
+    pergunta: string;
+    titulo: string;
 }
 
 interface Dado {
-  dimensoes: Record<string, string | number>; // chave-valor genérico para qualquer dimensão
-  valor: number;
+    dimensoes: Record<string, string | number>; // chave-valor genérico para qualquer dimensão
+    valor: number;
 }
 
 interface JsonVisualizacoes {
-  visualizacoes: Visualizacao[];
+    visualizacoes: Visualizacao[];
 }
 
 const dashboardDownload = () => {
 
-} 
+}
 
 const codeGraph = (typeGraph: string) => {
-        switch (typeGraph) {
-          case "grafico_barras_horizontal":
+    switch (typeGraph) {
+        case "grafico_barras_horizontal":
             return `
 Plot.plot({
     width: 530,
@@ -54,8 +54,8 @@ Plot.plot({
     x: { grid: true },
     marginLeft: 120,
 })`
-    
-          case "grafico_barras_vertical":
+
+        case "grafico_barras_vertical":
             return `
 Plot.plot({
     width: 530,
@@ -70,30 +70,30 @@ Plot.plot({
     x: { tickRotate: -45 },
     marginBottom: 100,
 })`
-    
-          case "grafico_linhas":
+
+        case "grafico_linhas":
             return `
 Plot.plot({
     width: 530,
     height: 530,
     marks: [
-        Plot.line(dadosFormatados, {
-        x: "ano",
+    Plot.line(dadosFormatados, {
+        x: primeiraDim,
         y: "valor",
-        stroke: "steelblue"
-        }),
-        Plot.dot(dadosFormatados, {
-        x: "ano",
+        stroke: "steelblue",
+    }),
+    Plot.dot(dadosFormatados, {
+        x: primeiraDim,
         y: "valor",
-        fill: "darkblue"
-        })
+        fill: "darkblue",
+    }),
     ],
     y: { grid: true },
-    x: { label: "Ano" },
-    margin: 70
+    x: { label: primeiraDim },
+    margin: 70,
 })`
-    
-          case "mapas_coropleticos":
+
+        case "mapas_coropleticos":
             return `
 Plot.plot({
     width: 530,
@@ -117,27 +117,27 @@ Plot.plot({
         }),
     ],
 })`
-    
-          case "graficos_com_proporcao":
+
+        case "graficos_com_proporcao":
             return `
 Plot.plot({
     width: 530,
     height: 530,
-    x: { label: "Categoria" },
+    x: { label: primeiraDim },
     y: { label: "Valor" },
     color: { legend: true },
     marks: [
-        Plot.barY(dadosFormatados, {
-        x: "categoria",
+    Plot.barY(dadosFormatados, {
+        x: primeiraDim,
         y: "valor",
-        fill: "grupo"
-        })
-    ]
+        fill: segundaDim || primeiraDim,
+    }),
+    ],
 })`
-    
-          default:
+
+        default:
             return `Tipo de gráfico incorreto.`
-        }
+    }
 }
 
 export default function DashboardPage() {
@@ -147,12 +147,12 @@ export default function DashboardPage() {
     const [isDataModalOpen, setIsDataModalOpen] = useState<boolean>(false)
     const [openPlotIndex, setOpenPlotIndex] = useState<number | null>(null)
 
-    
+
     const navigate = useNavigate()
 
     useEffect(() => {
         const plots = localStorage.getItem("plots")
-        if(plots!==null) {
+        if (plots !== null) {
             setPlotList(JSON.parse(plots))
         }
     }, [])
@@ -182,48 +182,48 @@ export default function DashboardPage() {
                 <div className="overflow-y-auto">
                     <div className="flex mx-5 my-3 gap-10 flex-wrap">
                         {plotList.map((plot, index) => (
-                        <div key={index} className="flex gap-4">
-                            <div className="bg-white p-2 rounded-xl shadow-[0_4px_10px_rgba(0,0,0,0.07)] w-[530px]">
-                            <p className="font-semibold text-center mt-2 mb-6 text-xl">{plot.titulo}</p>
-                            <PlotGeneric dados={plot.dados} tipo={plot.tipo} />
-                            </div>
+                            <div key={index} className="flex gap-4">
+                                <div className="bg-white p-2 rounded-xl shadow-[0_4px_10px_rgba(0,0,0,0.07)] w-[530px]">
+                                    <p className="font-semibold text-center mt-2 mb-6 text-xl">{plot.titulo}</p>
+                                    <PlotGeneric dados={plot.dados} tipo={plot.tipo} />
+                                </div>
 
-                            <div
-                            className="cursor-pointer"
-                            onClick={() => setOpenPlotIndex(index)}
-                            >
-                            <IoIosInformationCircleOutline size={32} />
-                            </div>
+                                <div
+                                    className="cursor-pointer"
+                                    onClick={() => setOpenPlotIndex(index)}
+                                >
+                                    <IoIosInformationCircleOutline size={32} />
+                                </div>
 
-                            <Dialog
-                            open={openPlotIndex === index}
-                            onOpenChange={(open) => setOpenPlotIndex(open ? index : null)}
-                            >
-                            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-                                <DialogHeader>
-                                <DialogTitle>Informações do gráfico</DialogTitle>
-                                <DialogDescription>
-                                    Estas são as informações que foram necessárias para a criação desse gráfico:
-                                </DialogDescription>
-                                </DialogHeader>
+                                <Dialog
+                                    open={openPlotIndex === index}
+                                    onOpenChange={(open) => setOpenPlotIndex(open ? index : null)}
+                                >
+                                    <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+                                        <DialogHeader>
+                                            <DialogTitle>Informações do gráfico</DialogTitle>
+                                            <DialogDescription>
+                                                Estas são as informações que foram necessárias para a criação desse gráfico:
+                                            </DialogDescription>
+                                        </DialogHeader>
 
-                                <p>A pergunta que gerou esse gráfico foi:</p>
-                                <pre className="text-xs bg-gray-100 p-3 rounded whitespace-pre-wrap max-h-[300px] overflow-auto">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione rerum temporibus, eum cupiditate dignissimos, atque nisi doloremque eligendi nihil a quae animi nemo labore odio ab. Voluptates tenetur doloribus porro.
-                                </pre>
+                                        <p>A pergunta que gerou esse gráfico foi:</p>
+                                        <pre className="text-xs bg-gray-100 p-3 rounded whitespace-pre-wrap max-h-[300px] overflow-auto">
+                                            {plot.pergunta}
+                                        </pre>
 
-                                <p>Os dados para gerar esse gráfico foram:</p>
-                                <pre className="text-xs bg-gray-100 p-3 rounded whitespace-pre-wrap max-h-[300px] overflow-auto">
-                                    {`dados = `+JSON.stringify(plot.dados, null, 2)}
-                                </pre>
+                                        <p>Os dados para gerar esse gráfico foram:</p>
+                                        <pre className="text-xs bg-gray-100 p-3 rounded whitespace-pre-wrap max-h-[300px] overflow-auto">
+                                            {`dados = ` + JSON.stringify(plot.dados, null, 2)}
+                                        </pre>
 
-                                <p>O código para gerar esse gráfico foi:</p>
-                                <pre className="text-xs bg-gray-100 p-3 rounded whitespace-pre-wrap max-h-[300px] overflow-auto">
-                                    {`// importar a biblioteca Plot\n`}
-                                    {`import {Plot} from "@observablehq/plot"`}
-                                </pre>
-                                <pre className="text-xs bg-gray-100 p-3 rounded whitespace-pre-wrap max-h-[300px] overflow-auto">
-                                    {plot.tipo === "mapas_coropleticos" ? `
+                                        <p>O código para gerar esse gráfico foi:</p>
+                                        <pre className="text-xs bg-gray-100 p-3 rounded whitespace-pre-wrap max-h-[300px] overflow-auto">
+                                            {`// importar a biblioteca Plot\n`}
+                                            {`import {Plot} from "@observablehq/plot"`}
+                                        </pre>
+                                        <pre className="text-xs bg-gray-100 p-3 rounded whitespace-pre-wrap max-h-[300px] overflow-auto">
+                                            {plot.tipo === "mapas_coropleticos" ? `
 brasil = (
   await fetch("https://raw.githubusercontent.com/giuliano-macedo/geodata-br-states/main/geojson/br_states.json")
     .then(res => res.json())
@@ -239,13 +239,13 @@ brasil = (
   const dimensoes = Object.keys(dados[0]?.dimensoes || {});
   const primeiraDim = dimensoes[0];
   const segundaDim = dimensoes[1];`}
-                                </pre>
-                                <pre className="text-xs bg-gray-100 p-3 rounded whitespace-pre-wrap max-h-[300px] overflow-auto">
-                                    {codeGraph(plot.tipo)}
-                                </pre>
-                            </DialogContent>
-                            </Dialog>
-                        </div>
+                                        </pre>
+                                        <pre className="text-xs bg-gray-100 p-3 rounded whitespace-pre-wrap max-h-[300px] overflow-auto">
+                                            {codeGraph(plot.tipo)}
+                                        </pre>
+                                    </DialogContent>
+                                </Dialog>
+                            </div>
                         ))}
                     </div>
                 </div>
