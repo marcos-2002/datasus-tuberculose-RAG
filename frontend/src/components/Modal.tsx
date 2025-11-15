@@ -92,30 +92,67 @@ export default function Modal({ isOpen, setIsOpen, json_plot }: ModalProps) {
             }}
           />
       );}
-      case "grafico_linhas":
+      case "graficos_linhas": {
+        const dims = vis.dados[0].dimensoes;
+
+        // Detecta automaticamente as chaves de dimensão
+        const chaveNumerica = Object.keys(dims).find(k => typeof dims[k] === "number"); // Ex: "id_ano"
+        const chaveTexto = Object.keys(dims).find(k => typeof dims[k] === "string"); // Ex: "Ano de Notificação"
+
+        if (!chaveNumerica || !chaveTexto) return null; // Proteção
+
+        // 1. Ordena os dados pelo ID numérico (ex: 2020, 2021, 2022...)
+        const dadosOrdenados = [...vis.dados].sort(
+            (a, b) => (a.dimensoes[chaveNumerica] as number) - (b.dimensoes[chaveNumerica] as number)
+        ); 
+
+        // 2. Extrai apenas os valores formatados para o Plot
+        const dadosFormatados = dadosOrdenados.map((d: Dado) => ({
+            // Usar a chave de texto para o eixo X
+            [chaveTexto]: d.dimensoes[chaveTexto], 
+            valor: d.valor
+        }));
+        
+        // 3. Define a ordem do domínio para garantir que o eixo X siga a ordem do ano.
+        const domainOrder = dadosOrdenados.map(d => d.dimensoes[chaveTexto] as string);
+
+        // console.log(dadosFormatados);
+        // console.log(domainOrder); // Deve ser a lista de rótulos na ordem correta
+
         return (
-          <PlotFigure
-            options={{
-              width: 600,
-              height: 600,
-              marks: [
-                Plot.line(vis.dados.map((d: Dado) => ({ ...d.dimensoes, valor: d.valor })), { 
-                  x: Object.keys(vis.dados[0].dimensoes)[0], 
-                  y: "valor", 
-                  stroke: "steelblue" 
-                }),
-                Plot.dot(vis.dados.map((d: Dado) => ({ ...d.dimensoes, valor: d.valor })), { 
-                  x: Object.keys(vis.dados[0].dimensoes)[0], 
-                  y: "valor", 
-                  fill: "darkblue" 
-                })
-              ],
-              y: { grid: true },
-              x: { label: Object.keys(vis.dados[0].dimensoes)[0] },
-              margin: 70
-            }}
-          />
-      );
+            <PlotFigure
+                options={{
+                    width: 600,
+                    height: 600,
+                    marks: [
+                        Plot.line(dadosFormatados, { 
+                            // Agora 'x' usa a chave de texto (rótulo)
+                            x: chaveTexto, 
+                            y: "valor", 
+                            stroke: "steelblue"
+                        }),
+                        Plot.dot(dadosFormatados, { 
+                            x: chaveTexto, 
+                            y: "valor", 
+                            fill: "darkblue"
+                        }),
+                    ],
+                    x: { 
+                        domain: domainOrder, // Garante a ordem correta dos rótulos
+                        label: chaveTexto,
+                        tickRotate: -45,
+                        padding: 0.1 // Adiciona um pequeno espaço nas bordas
+                    },
+                    y: { 
+                        grid: true,
+                        label: "Valor"
+                    },
+                    marginBottom: 100 // Aumenta para acomodar os rótulos girados
+                }}
+            />
+        );
+      }
+
       case "mapas_coropleticos":
          return (
           <PlotFigure
@@ -178,11 +215,17 @@ export default function Modal({ isOpen, setIsOpen, json_plot }: ModalProps) {
           .map((vis, index) => {
             // impede a renderização dos gráficos nao selecionados
             if (selectedIndex !== null && selectedIndex !== index) return null;
-
+            
             // retorna o gráfico selecionado ou os outros graficos
             return (
               <div className="flex flex-col">
-                <p className={"text-center font-semibold" + selectedIndex !== null && selectedIndex !== index ? "my-4 text-[12px]" : " mt-2 mb-6 text-xl"}>{vis.titulo}</p>
+                <p 
+                  className={"text-center font-semibold" + 
+                  ((selectedIndex !== null && selectedIndex !== index)
+                    ? "my-4 text-[12px]"
+                    : "mt-2 mb-6 text-base")}>
+                  {vis.titulo}
+                </p>
                 <div
                   key={index}
                   className={`cursor-pointer transition-all`}

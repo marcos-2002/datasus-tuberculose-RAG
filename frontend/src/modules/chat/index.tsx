@@ -102,7 +102,6 @@ Clique no botão "Ver informações disponíveis" para ver quais informações e
     }, [messages])
 
     const [jsonPlot, setJsonPlot] = useState('')
-    console.log(jsonPlot)
     const sendMessage = async () => {
         if (!inputValue.trim()) return
 
@@ -188,7 +187,7 @@ Clique no botão "Ver informações disponíveis" para ver quais informações e
     };
 
     const [isOpen, setIsOpen] = useState(false)
-    console.log(jsonPlot)
+    // console.log(jsonPlot)
     return (
         <div className="flex h-screen bg-gray-50/50 overflow-hidden">
             <Header />

@@ -71,7 +71,7 @@ Plot.plot({
     marginBottom: 100,
 })`
 
-        case "grafico_linhas":
+        case "graficos_linhas":
             return `
 Plot.plot({
     width: 530,
@@ -147,6 +147,7 @@ export default function DashboardPage() {
     const [isDataModalOpen, setIsDataModalOpen] = useState<boolean>(false)
     const [openPlotIndex, setOpenPlotIndex] = useState<number | null>(null)
 
+    const [indexPlotModal, setIndexPlotModal] = useState<number | null>(null)
 
     const navigate = useNavigate()
 
@@ -156,7 +157,6 @@ export default function DashboardPage() {
             setPlotList(JSON.parse(plots))
         }
     }, [])
-    console.log(plotList)
 
     return (
         <div className="flex h-screen bg-gray-50/50 overflow-hidden">
@@ -183,7 +183,7 @@ export default function DashboardPage() {
                     <div className="flex mx-5 my-3 gap-10 flex-wrap">
                         {plotList.map((plot, index) => (
                             <div key={index} className="flex gap-4">
-                                <div className="bg-white p-2 rounded-xl shadow-[0_4px_10px_rgba(0,0,0,0.07)] w-[530px]">
+                                <div className="bg-white p-2 rounded-xl shadow-[0_4px_10px_rgba(0,0,0,0.07)] w-[530px]" onClick={()=>setIndexPlotModal(index)}>
                                     <p className="font-semibold text-center mt-2 mb-6 text-xl">{plot.titulo}</p>
                                     <PlotGeneric dados={plot.dados} tipo={plot.tipo} />
                                 </div>
@@ -227,8 +227,9 @@ export default function DashboardPage() {
 brasil = (
   await fetch("https://raw.githubusercontent.com/giuliano-macedo/geodata-br-states/main/geojson/br_states.json")
     .then(res => res.json())
+    .catch((error) => console.error("Erro ao carregar mapa:", error))
 )
-.catch((error) => console.error("Erro ao carregar mapa:", error));` : `
+` : `
  // 🔹 Prepara os dados em formato genérico
   const dadosFormatados = dados.map((d) => ({
     ...d.dimensoes,
@@ -250,6 +251,21 @@ brasil = (
                     </div>
                 </div>
             </div>
+            <Dialog
+                open={indexPlotModal !== null}
+                onOpenChange={(open) => {
+                    if (!open) setIndexPlotModal(null); // fecha
+                }}
+                >
+                <DialogContent className="max-w-4xl overflow-y-auto flex flex-col justify-center items-center">
+                    {indexPlotModal !== null && (
+                        <>
+                            <p className="font-semibold text-center mt-2 mb-6 text-xl">{plotList[indexPlotModal].titulo}</p>
+                            <PlotGeneric dados={plotList[indexPlotModal].dados} tipo={plotList[indexPlotModal].tipo} tamanho={700}/>
+                        </>
+                    )}
+                </DialogContent>
+            </Dialog>
         </div>
     )
 }
