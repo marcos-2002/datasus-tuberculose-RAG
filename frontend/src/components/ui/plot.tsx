@@ -13,6 +13,11 @@ interface PlotGenericProps {
   tamanho?: number | null;
 }
 
+function temValores(dados: any, dim: any) {
+  if (!dim) return false; // não existe
+  return dados.some((d:any) => d.dimensoes[dim] !== undefined && d.dimensoes[dim] !== null);
+}
+
 export default function PlotGeneric({ tipo, dados, tamanho=null }: PlotGenericProps) {
   const [brasil, setBrasil] = useState<any>(null);
 
@@ -38,6 +43,12 @@ export default function PlotGeneric({ tipo, dados, tamanho=null }: PlotGenericPr
   const dimensoes = Object.keys(dados[0]?.dimensoes || {});
   const primeiraDim = dimensoes[0];
   const segundaDim = dimensoes[1];
+  const terceiraDim = dimensoes[2];
+
+  const fillDim =
+          temValores(dados, terceiraDim) ? terceiraDim :
+          temValores(dados, segundaDim)  ? segundaDim  :
+          primeiraDim;
 
   // 🔹 Função que renderiza o gráfico de acordo com o tipo
   const renderPlot = () => {
@@ -103,9 +114,6 @@ export default function PlotGeneric({ tipo, dados, tamanho=null }: PlotGenericPr
                 
         // 3. Define a ordem do domínio para garantir que o eixo X siga a ordem do ano.
         const domainOrder = dadosOrdenados.map(d => d.dimensoes[chaveTexto] as string);
-        
-        // console.log(dadosFormatados);
-        // console.log(domainOrder); // Deve ser a lista de rótulos na ordem correta
         
         return (
             <PlotFigure
@@ -175,16 +183,18 @@ export default function PlotGeneric({ tipo, dados, tamanho=null }: PlotGenericPr
             options={{
               width: tamanho ?? 530,
               height: tamanho ?? 530,
-              x: { label: primeiraDim },
+              x: { label: primeiraDim, tickRotate: -40 },
               y: { label: "Valor" },
               color: { legend: true },
               marks: [
                 Plot.barY(dadosFormatados, {
                   x: primeiraDim,
                   y: "valor",
-                  fill: segundaDim || primeiraDim,
+                  fill: fillDim,
+                  
                 }),
               ],
+              marginBottom: 120,
             }}
           />
         );

@@ -38,6 +38,11 @@ const plotsLocalStorage = (vis: Visualizacao) => {
   localStorage.setItem("plots", JSON.stringify(plotsList));
 }
 
+function temValores(vis: any, dim: any) {
+  if (!dim) return false; // não existe
+  return vis.dados.some((d:any) => d.dimensoes[dim] !== undefined && d.dimensoes[dim] !== null);
+}
+
 export default function Modal({ isOpen, setIsOpen, json_plot }: ModalProps) {
   if (!isOpen) return null
   if (!json_plot) {
@@ -179,21 +184,31 @@ export default function Modal({ isOpen, setIsOpen, json_plot }: ModalProps) {
           />
         );
       case "graficos_com_proporcao":
+        const primeiraDim = Object.keys(vis.dados[0].dimensoes)[0];
+        const segundaDim = Object.keys(vis.dados[0].dimensoes)[1];
+        const terceiraDim = Object.keys(vis.dados[0].dimensoes)[2];
+
+        const fillDim =
+          temValores(vis, terceiraDim) ? terceiraDim :
+          temValores(vis, segundaDim)  ? segundaDim  :
+          primeiraDim;
+
         return (
         <PlotFigure
           options={{
             width: 600,
             height: 600,
-            x: { label: Object.keys(vis.dados[0].dimensoes)[0] },
+            x: { label: primeiraDim, tickRotate: -40 },
             y: { label: "Valor" },
             color: { legend: true },
             marks: [
               Plot.barY(vis.dados.map((d: Dado) => ({ ...d.dimensoes, valor: d.valor })), {
-                x: Object.keys(vis.dados[0].dimensoes)[0],
+                x: primeiraDim,
                 y: "valor",
-                fill: Object.keys(vis.dados[0].dimensoes)[1] || Object.keys(vis.dados[0].dimensoes)[0]
+                fill: fillDim
               })
-            ]
+            ],
+            marginBottom: 120,
           }}
         />
       );

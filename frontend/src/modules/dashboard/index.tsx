@@ -16,6 +16,8 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog"
 
+import ChartInformation from "./components/chartInformation"
+
 interface Visualizacao {
     tipo: string;
     score: number;
@@ -37,114 +39,11 @@ const dashboardDownload = () => {
 
 }
 
-const codeGraph = (typeGraph: string) => {
-    switch (typeGraph) {
-        case "grafico_barras_horizontal":
-            return `
-Plot.plot({
-    width: 530,
-    height: 530,
-    marks: [
-    Plot.barX(dadosFormatados, {
-        x: "valor",
-        y: primeiraDim,
-        fill: "steelblue",
-    }),
-    ],
-    x: { grid: true },
-    marginLeft: 120,
-})`
 
-        case "grafico_barras_vertical":
-            return `
-Plot.plot({
-    width: 530,
-    height: 530,
-    marks: [
-    Plot.barY(dadosFormatados, {
-        x: primeiraDim,
-        y: "valor",
-        fill: "steelblue",
-    }),
-    ],
-    x: { tickRotate: -45 },
-    marginBottom: 100,
-})`
-
-        case "graficos_linhas":
-            return `
-Plot.plot({
-    width: 530,
-    height: 530,
-    marks: [
-    Plot.line(dadosFormatados, {
-        x: primeiraDim,
-        y: "valor",
-        stroke: "steelblue",
-    }),
-    Plot.dot(dadosFormatados, {
-        x: primeiraDim,
-        y: "valor",
-        fill: "darkblue",
-    }),
-    ],
-    y: { grid: true },
-    x: { label: primeiraDim },
-    margin: 70,
-})`
-
-        case "mapas_coropleticos":
-            return `
-Plot.plot({
-    width: 530,
-    height: 530,
-    axis: null,
-    color: {
-        type: "quantize",
-        scheme: "blues",
-        label: "Valor",
-        legend: true,
-    },
-    marks: [
-        Plot.geo(brasil, {
-            fill: feature => {
-            const estado = feature.properties.Estado;
-            return dados.find(
-                (d) => Object.values(d.dimensoes)[0] === estado
-            )?.valor;
-            },
-            stroke: "lightgray",
-        }),
-    ],
-})`
-
-        case "graficos_com_proporcao":
-            return `
-Plot.plot({
-    width: 530,
-    height: 530,
-    x: { label: primeiraDim },
-    y: { label: "Valor" },
-    color: { legend: true },
-    marks: [
-    Plot.barY(dadosFormatados, {
-        x: primeiraDim,
-        y: "valor",
-        fill: segundaDim || primeiraDim,
-    }),
-    ],
-})`
-
-        default:
-            return `Tipo de gráfico incorreto.`
-    }
-}
 
 export default function DashboardPage() {
-    const [isOpen, setIsOpen] = useState(false)
     const [plotList, setPlotList] = useState<Visualizacao[]>([]);
 
-    const [isDataModalOpen, setIsDataModalOpen] = useState<boolean>(false)
     const [openPlotIndex, setOpenPlotIndex] = useState<number | null>(null)
 
     const [indexPlotModal, setIndexPlotModal] = useState<number | null>(null)
@@ -183,7 +82,7 @@ export default function DashboardPage() {
                     <div className="flex mx-5 my-3 gap-10 flex-wrap">
                         {plotList.map((plot, index) => (
                             <div key={index} className="flex gap-4">
-                                <div className="bg-white p-2 rounded-xl shadow-[0_4px_10px_rgba(0,0,0,0.07)] w-[530px]" onClick={()=>setIndexPlotModal(index)}>
+                                <div className="bg-white p-2 rounded-xl shadow-[0_4px_10px_rgba(0,0,0,0.07)] w-[530px] cursor-pointer" onClick={()=>setIndexPlotModal(index)}>
                                     <p className="font-semibold text-center mt-2 mb-6 text-xl">{plot.titulo}</p>
                                     <PlotGeneric dados={plot.dados} tipo={plot.tipo} />
                                 </div>
@@ -207,43 +106,8 @@ export default function DashboardPage() {
                                             </DialogDescription>
                                         </DialogHeader>
 
-                                        <p>A pergunta que gerou esse gráfico foi:</p>
-                                        <pre className="text-xs bg-gray-100 p-3 rounded whitespace-pre-wrap max-h-[300px] overflow-auto">
-                                            {plot.pergunta}
-                                        </pre>
+                                        <ChartInformation dados={JSON.stringify(plot.dados, null, 2)} pergunta={plot.pergunta} tipo={plot.tipo} />
 
-                                        <p>Os dados para gerar esse gráfico foram:</p>
-                                        <pre className="text-xs bg-gray-100 p-3 rounded whitespace-pre-wrap max-h-[300px] overflow-auto">
-                                            {`dados = ` + JSON.stringify(plot.dados, null, 2)}
-                                        </pre>
-
-                                        <p>O código para gerar esse gráfico foi:</p>
-                                        <pre className="text-xs bg-gray-100 p-3 rounded whitespace-pre-wrap max-h-[300px] overflow-auto">
-                                            {`// importar a biblioteca Plot\n`}
-                                            {`import {Plot} from "@observablehq/plot"`}
-                                        </pre>
-                                        <pre className="text-xs bg-gray-100 p-3 rounded whitespace-pre-wrap max-h-[300px] overflow-auto">
-                                            {plot.tipo === "mapas_coropleticos" ? `
-brasil = (
-  await fetch("https://raw.githubusercontent.com/giuliano-macedo/geodata-br-states/main/geojson/br_states.json")
-    .then(res => res.json())
-    .catch((error) => console.error("Erro ao carregar mapa:", error))
-)
-` : `
- // 🔹 Prepara os dados em formato genérico
-  const dadosFormatados = dados.map((d) => ({
-    ...d.dimensoes,
-    valor: d.valor,
-  }));
-
-  // 🔹 Identifica dimensões
-  const dimensoes = Object.keys(dados[0]?.dimensoes || {});
-  const primeiraDim = dimensoes[0];
-  const segundaDim = dimensoes[1];`}
-                                        </pre>
-                                        <pre className="text-xs bg-gray-100 p-3 rounded whitespace-pre-wrap max-h-[300px] overflow-auto">
-                                            {codeGraph(plot.tipo)}
-                                        </pre>
                                     </DialogContent>
                                 </Dialog>
                             </div>
