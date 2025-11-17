@@ -31,15 +31,6 @@ interface Dado {
     valor: number;
 }
 
-interface JsonVisualizacoes {
-    visualizacoes: Visualizacao[];
-}
-
-const dashboardDownload = () => {
-
-}
-
-
 
 export default function DashboardPage() {
     const [plotList, setPlotList] = useState<Visualizacao[]>([]);
@@ -69,12 +60,8 @@ export default function DashboardPage() {
                         <p className="text-sm text-gray-500">Especializado em Tuberculose</p>
                     </div>
                     <div className="flex flex-row gap-4">
-                        <Button size="sm" className="bg-gray-300 hover:bg-gray-400 text-blac" onClick={() => navigate('/')}>
-                            Chat
-                        </Button>
-                        {/* Botão para abrir modal com lista de dados disponíveis */}
-                        <Button size="sm" className="bg-blue-600 hover:bg-blue-700" onClick={() => dashboardDownload()}>
-                            Baixar gráficos
+                        <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white" onClick={() => navigate('/')}>
+                            Voltar ao chat
                         </Button>
                     </div>
                 </div>

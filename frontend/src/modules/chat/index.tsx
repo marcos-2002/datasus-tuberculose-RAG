@@ -201,11 +201,14 @@ Clique no botão "Ver informações disponíveis" para ver quais informações e
                         <p className="text-sm text-gray-500">Especializado em Tuberculose</p>
                     </div>
                     <div className="flex flex-row gap-4">
+                        <Button size="sm" className="bg-blue-600 hover:bg-blue-700" onClick={() => setIsOpen(true)}>
+                            Ver gráficos gerados pela última pergunta
+                        </Button>
                         <Button size="sm" className="bg-gray-300 hover:bg-gray-400 text-blac" onClick={() => navigate('/dashboard')}>
                             Ver dashboard
                         </Button>
                         {/* Botão para abrir modal com lista de dados disponíveis */}
-                        <Button size="sm" className="bg-blue-600 hover:bg-blue-700" onClick={() => setIsDataModalOpen(true)}>
+                        <Button size="sm" className="bg-blue-500 hover:bg-blue-700" onClick={() => setIsDataModalOpen(true)}>
                             Ver informações disponíveis
                         </Button>
                     </div>
@@ -246,11 +249,6 @@ Clique no botão "Ver informações disponíveis" para ver quais informações e
                                 >
                                     <div className="prose prose-sm max-w-none">
                                         <ReactMarkdown>{msg.content}</ReactMarkdown>
-                                        {msg.position === "L" && (
-                                            <div>
-                                                <button className="my-2 py-2 px-4 border border-gray-400 rounded hover:border-gray-800" onClick={() => setIsOpen(true)}>Ver gráfico</button>
-                                            </div>
-                                        )}
                                     </div>
                                     <span className={`text-xs mt-1 block ${msg.position === "R" ? "text-blue-200" : "text-gray-400"}`}>
                                         {msg.date}
