@@ -35,8 +35,11 @@ class RAGPipeline:
             )
             final_answer = await answer_constructor.create_answer()
 
+            suggested_json_constructor = VisualizationRecommenderConstructor(last_messages=self.last_messages, final_answer=final_answer, tipo_pergunta=tipo_pergunta)
+            suggested_json = await suggested_json_constructor.create_json()
+
             await Logs.create(chat_id=self.last_messages[0].get("chat_id"), message=f"Resposta {final_answer}")
-            return {"final_answer": final_answer, "sql_query": ""}
+            return {"final_answer": final_answer, "sql_query": "", "suggested_json": suggested_json}
 
         elif tipo_pergunta == "consulta_nova":
             # Etapas para obter o contexto, query e resposta com dados
@@ -59,7 +62,7 @@ class RAGPipeline:
             )
             final_answer = await answer_constructor.create_answer()
             
-            suggested_json_constructor = VisualizationRecommenderConstructor(sql_query=sql_query, final_answer=final_answer)
+            suggested_json_constructor = VisualizationRecommenderConstructor(sql_query=sql_query, final_answer=final_answer, tipo_pergunta=tipo_pergunta)
             suggested_json = await suggested_json_constructor.create_json()
             
             await Logs.create(chat_id=self.last_messages[0].get("chat_id"), message=f"Resposta {final_answer}")

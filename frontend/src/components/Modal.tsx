@@ -243,7 +243,7 @@ export default function Modal({ isOpen, setIsOpen, json_plot }: ModalProps) {
                 </p>
                 <div
                   key={index}
-                  className={`cursor-pointer transition-all`}
+                  className={`cursor-pointer transition-all` + (selectedIndex === null ? `w-fit` : `max-w-[250px]`)}
                   onClick={() =>
                     setSelectedIndex(selectedIndex === index ? null : index)
                   }
