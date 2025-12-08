@@ -20,7 +20,7 @@ O objetivo do sistema é auxiliar pesquisadores da área da saúde, especialment
 1. Clone o repositório:
 
    ```bash
-   git clone https://github.com/thiago1591/tuberculosis-analysis
+   git clone https://github.com/thiago1591/datasus-tuberculose-RAG
    ```
 
 2. Navegue até o diretório do projeto:
@@ -37,6 +37,14 @@ O objetivo do sistema é auxiliar pesquisadores da área da saúde, especialment
    ```copy .env.example .env``` (windows)
 
    Coloque a sua chave de API do Gemini em LLM_KEY
+
+3.1. Trocar no menu inferior do arquivo docker-entrypoint.sh CRLF para LF 
+![alt text](image.png)
+
+3.2 No arquivo docker compose.yml trocar a ultima linha para
+```
+   command: ["/app/docker-entrypoint.sh"]
+```
 
 4. Rode o Docker
    ```bash

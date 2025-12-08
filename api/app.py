@@ -90,7 +90,8 @@ async def chat_message():
 
         return jsonify({
             "answer": response["final_answer"], 
-            "sql": response["sql_query"]
+            "sql": response["sql_query"],
+            "json_plot": response["suggested_json"]
         })
 
     except LLMServiceError as e:
