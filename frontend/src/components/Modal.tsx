@@ -2,6 +2,7 @@ import * as Plot from "@observablehq/plot";
 import PlotFigure from "./ui/PlotFigure";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button"
+import { toast } from "@/hooks/use-toast"
 
 interface ModalProps {
   isOpen: boolean
@@ -45,10 +46,7 @@ function temValores(vis: any, dim: any) {
 
 export default function Modal({ isOpen, setIsOpen, json_plot }: ModalProps) {
   if (!isOpen) return null
-  if (!json_plot) {
-    console.log("não tem nada no json")
-    return null
-  }
+
 
   const [brasil, setBrasil] = useState({})
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -97,7 +95,7 @@ export default function Modal({ isOpen, setIsOpen, json_plot }: ModalProps) {
             }}
           />
       );}
-      case "graficos_linhas": {
+      case "grafico_linhas": {
         const dims = vis.dados[0].dimensoes;
 
         // Detecta automaticamente as chaves de dimensão
@@ -224,7 +222,7 @@ export default function Modal({ isOpen, setIsOpen, json_plot }: ModalProps) {
         onClick={() => setIsOpen(false)} // fecha ao clicar no fundo
       />
 
-       <div className="fixed top-1/2 left-1/2 w-fit max-h-screen -translate-x-1/2 -translate-y-1/2 bg-white z-50 rounded-lg shadow-lg px-4 py-8 flex flex-row gap-6 overflow-y-auto justify-center items-center">
+<div className="fixed top-1/2 left-1/2 w-fit max-h-screen -translate-x-1/2 -translate-y-1/2 bg-white z-50 rounded-lg shadow-lg px-4 py-8 flex flex-row flex-wrap lg:flex-nowrap gap-4 sm:gap-6 overflow-y-auto justify-center items-center">
         {json_plot?.visualizacoes
           .filter((vis) => vis.score >= 0.8)
           .map((vis, index) => {
@@ -233,7 +231,7 @@ export default function Modal({ isOpen, setIsOpen, json_plot }: ModalProps) {
             
             // retorna o gráfico selecionado ou os outros graficos
             return (
-              <div className="flex flex-col">
+              <div className="flex flex-col" key={index}>
                 <p 
                   className={"text-center font-semibold" + 
                   ((selectedIndex !== null && selectedIndex !== index)
@@ -257,6 +255,11 @@ export default function Modal({ isOpen, setIsOpen, json_plot }: ModalProps) {
                         onClick={(e)=> {
                           e.stopPropagation(); 
                           plotsLocalStorage(vis);
+                          toast({
+                            title: "Sucesso",
+                            description: "Gráfico salvo com sucesso.",
+                            variant: "success",
+                          });
                         }}>
                           Armazenar gráfico
                         </Button>
@@ -267,6 +270,9 @@ export default function Modal({ isOpen, setIsOpen, json_plot }: ModalProps) {
               </div>
             );
           })}
+          {json_plot === undefined && (
+            <p className="text-center font-semibold mt-2 mb-6 text-base">Não há gráficos disponíveis. Faça uma nova pergunta para gerar visualizações.</p>
+          )}
       </div>
     </>
   )

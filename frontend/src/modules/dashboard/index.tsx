@@ -69,7 +69,7 @@ export default function DashboardPage() {
                     <div className="flex mx-5 my-3 gap-10 flex-wrap">
                         {plotList.map((plot, index) => (
                             <div key={index} className="flex gap-4">
-                                <div className="bg-white p-2 rounded-xl shadow-[0_4px_10px_rgba(0,0,0,0.07)] w-[530px] cursor-pointer" onClick={()=>setIndexPlotModal(index)}>
+                                <div className="bg-white p-2 rounded-xl shadow-[0_4px_10px_rgba(0,0,0,0.07)] w-full sm:w-[530px] cursor-pointer" onClick={()=>setIndexPlotModal(index)}>
                                     <p className="font-semibold text-center mt-2 mb-6 text-xl">{plot.titulo}</p>
                                     <PlotGeneric dados={plot.dados} tipo={plot.tipo} />
                                 </div>
@@ -108,7 +108,7 @@ export default function DashboardPage() {
                     if (!open) setIndexPlotModal(null); // fecha
                 }}
                 >
-                <DialogContent className="max-w-4xl overflow-y-auto flex flex-col justify-center items-center">
+                <DialogContent className="xl:max-w-lg 2xl:max-w-4xl overflow-y-auto flex flex-col justify-center items-center">
                     {indexPlotModal !== null && (
                         <>
                             <p className="font-semibold text-center mt-2 mb-6 text-xl">{plotList[indexPlotModal].titulo}</p>

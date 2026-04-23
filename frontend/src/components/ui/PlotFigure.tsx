@@ -2,7 +2,7 @@ import * as Plot from "@observablehq/plot";
 import { createElement as h } from "react";
 
 interface PlotFigureProps {
-  options: any; // você pode refinar isso depois com os tipos do Plot
+  options: any; // pode refinar isso depois com os tipos do Plot
 }
 
 export default function PlotFigure({ options }: PlotFigureProps) {

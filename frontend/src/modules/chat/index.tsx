@@ -195,24 +195,45 @@ Clique no botão "Ver informações disponíveis" para ver quais informações e
 
             <div className="flex-1 flex flex-col mt-14 md:ml-64 overflow-hidden">
                 {/* Header da conversa */}
-                <div className="bg-white border-b border-gray-100 p-5 shrink-0 flex items-center justify-between">
-                    <div>
-                        <h2 className="text-lg font-medium text-gray-800">Assistente de Pesquisa Epidemiológica</h2>
-                        <p className="text-sm text-gray-500">Especializado em Tuberculose</p>
-                    </div>
-                    <div className="flex flex-row gap-4">
-                        <Button size="sm" className="bg-blue-600 hover:bg-blue-700" onClick={() => setIsOpen(true)}>
-                            Ver gráficos gerados pela última pergunta
-                        </Button>
-                        <Button size="sm" className="bg-gray-300 hover:bg-gray-400 text-blac" onClick={() => navigate('/dashboard')}>
-                            Ver dashboard
-                        </Button>
-                        {/* Botão para abrir modal com lista de dados disponíveis */}
-                        <Button size="sm" className="bg-blue-500 hover:bg-blue-700" onClick={() => setIsDataModalOpen(true)}>
-                            Ver informações disponíveis
-                        </Button>
-                    </div>
-                </div>
+                <div className="bg-white border-b border-gray-100 p-4 md:p-5 shrink-0 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    
+    {/* Texto */}
+    <div>
+        <h2 className="text-base md:text-lg font-medium text-gray-800">
+            Assistente de Pesquisa Epidemiológica
+        </h2>
+        <p className="text-xs md:text-sm text-gray-500">
+            Especializado em Tuberculose
+        </p>
+    </div>
+
+    {/* Botões */}
+    <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full md:w-auto">
+        <Button
+            size="sm"
+            className="bg-blue-600 hover:bg-blue-700 w-full sm:w-auto"
+            onClick={() => setIsOpen(true)}
+        >
+            Ver gráficos
+        </Button>
+
+        <Button
+            size="sm"
+            className="bg-gray-300 hover:bg-gray-400 text-black w-full sm:w-auto"
+            onClick={() => navigate('/dashboard')}
+        >
+            Dashboard
+        </Button>
+
+        <Button
+            size="sm"
+            className="bg-blue-500 hover:bg-blue-700 w-full sm:w-auto"
+            onClick={() => setIsDataModalOpen(true)}
+        >
+            Informações
+        </Button>
+    </div>
+</div>
 
                 {/* Modal lista de dados disponíveis */}
                 <Dialog open={isDataModalOpen} onOpenChange={setIsDataModalOpen}>
