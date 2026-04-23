@@ -26,7 +26,7 @@ O objetivo do sistema é auxiliar pesquisadores da área da saúde, especialment
 2. Navegue até o diretório do projeto:
 
    ```bash
-   cd tuberculosis-analysis
+   cd datasus-tuberculose-RAG
    ```
 
 3. Crie o arquivo .env
@@ -69,10 +69,17 @@ O objetivo do sistema é auxiliar pesquisadores da área da saúde, especialment
    docker logs api
    ```
 
-6. Rode o frontend (no windows use copy em vez de cp)
+6. Rode o frontend
+   Em um novo terminal, navegue até a pasta `frontend`:
    ```bash
       cd frontend
-      cp .env.example .env
+   ```
+   Crie um arquivo .env na pasta frontend com o seguinte conteúdo:
+   ```env
+   VITE_API_URL=http://localhost:8000
+   ```
+   Em seguida, execute:
+   ```bash
       yarn install
       yarn dev
    ```
