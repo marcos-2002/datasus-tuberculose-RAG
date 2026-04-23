@@ -43,19 +43,19 @@ O objetivo do sistema é auxiliar pesquisadores da área da saúde, especialment
 
 3.2 No arquivo docker compose.yml trocar a ultima linha para
 ```
-   command: ["/app/docker-entrypoint.sh"]
+command: ["/app/docker-entrypoint.sh"]
 ```
 
 4. Rode o Docker
    ```bash
-      docker compose up
+   docker compose up
    ```
 
    Esse comando irá subir o banco de dados e a API
 
 5. Rode as seeds
    ```bash
-    docker exec -it api python3 seed_data.py
+   docker exec -it api python3 seed_data.py
    ```
 
 6. Importe os dados do datasus
@@ -69,10 +69,10 @@ O objetivo do sistema é auxiliar pesquisadores da área da saúde, especialment
    docker logs api
    ```
 
-6. Rode o frontend
+6. Rode o frontend <br>
    Em um novo terminal, navegue até a pasta `frontend`:
    ```bash
-      cd frontend
+   cd frontend
    ```
    Crie um arquivo .env na pasta frontend com o seguinte conteúdo:
    ```env
@@ -80,7 +80,7 @@ O objetivo do sistema é auxiliar pesquisadores da área da saúde, especialment
    ```
    Em seguida, execute:
    ```bash
-      yarn install
-      yarn dev
+   yarn install
+   yarn dev
    ```
 
